@@ -30,3 +30,8 @@ img {
   width: 1440px;
   padding: 0 128px;
 }
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}

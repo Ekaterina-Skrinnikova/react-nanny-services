@@ -1,0 +1,15 @@
+.wrapper {
+  justify-content: space-between;
+}
+
+.blockLeft {
+  padding: 251px 64px 163px 96px;
+  background-color: var(--base-site-color);
+}
+
+.blockRight {
+  padding: 568px 50px 50px 365px;
+  background-image: url("../../images/homepage-1x.jpg");
+  background-position: center;
+  background-size: cover;
+}

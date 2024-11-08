@@ -3,7 +3,7 @@ import FiltersField from "../../components/FiltersField/FiltersField";
 
 export default function Nannies() {
   return (
-    <div>
+    <div className="container">
       <FiltersField />
       <CardNanny />
     </div>

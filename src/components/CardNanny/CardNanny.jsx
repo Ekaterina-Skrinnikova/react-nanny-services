@@ -1,7 +1,7 @@
 import sprite from "../../images/sprite.svg";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 
-export default function CardNanny() {
+export default function CardNanny({ nanny }) {
   const parametres = [
     "Age",
     "Expirience",

@@ -1,5 +1,6 @@
 @import url("./css/fonts.css");
 @import url("./css/global.css");
 
-/* :root {
-} */
+:root {
+  --base-site-color: #103931;
+}

@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
+// import { useEffect } from "react";
 import Button from "../../components/Button/Button";
 import sprite from "../../images/sprite.svg";
 import css from "../HomePage/HomePage.module.css";
-import { fetchAllNannies } from "../../redux/nannies/operations";
+// import { getAllNannies } from "../../redux/nannies/operations.js";
 
 export default function HomePage() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchAllNannies());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllNannies());
+  // }, [dispatch]);
 
   return (
     <div className="container flex">

@@ -1,18 +1,16 @@
-// import { selectNannies } from "../../redux/nannies/selectors";
+import { useSelector } from "react-redux";
+import { selectNannies } from "../../redux/nannies/selectors.js";
 import CardNanny from "../CardNanny/CardNanny";
-import data from "../../firebase/data.json";
 
 export default function ListCardNannies() {
-  //   const nannies = useSelector(selectNannies);
-
-  console.log(data);
+  const nannies = useSelector(selectNannies);
 
   return (
     <ul>
-      {data && data.length > 0 ? (
-        data.map((el) => (
-          <li key={el.id}>
-            <CardNanny nanny={el} />
+      {nannies && nannies.length > 0 ? (
+        nannies.map((nanny, i) => (
+          <li key={i}>
+            <CardNanny nanny={nanny} />
           </li>
         ))
       ) : (

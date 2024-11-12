@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllNannies } from "./operations";
+import { getAllNannies, getNannyById } from "./operations";
 
 const initialState = {
   nannies: [],
+  nanny: null,
+
   isLoading: false,
   error: null,
 };
@@ -14,16 +16,28 @@ const nanniesSlice = createSlice({
 
   extraReducers: (builder) =>
     builder
-      .addCase(fetchAllNannies.pending, (state) => {
+      .addCase(getAllNannies.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchAllNannies.fulfilled, (state, action) => {
+      .addCase(getAllNannies.fulfilled, (state, action) => {
         state.nannies = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchAllNannies.rejected, (state, action) => {
+      .addCase(getAllNannies.rejected, (state, action) => {
         state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getNannyById.pending, (state) => {
+        state.error = null;
+        state.isLoading = true;
+      })
+      .addCase(getNannyById.fulfilled, (state, action) => {
+        state.nanny = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getNannyById.rejected, (state, action) => {
+        state.error = action.error;
         state.isLoading = false;
       }),
 });

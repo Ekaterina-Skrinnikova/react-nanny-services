@@ -3,4 +3,9 @@
 
 :root {
   --base-site-color: #103931;
+  --base-text-color: #11101c;
+  --base-text-opacity-color: #11101c80;
+  --bg-site-color: #fbfbfb;
+
+  --accent-color: #f03f3b33;
 }

@@ -1,7 +1,10 @@
 body {
+  box-sizing: border-box;
   font-family: "Helvetica Neue", sans-serif;
-  line-height: 1.5;
-  background-color: #fbfbff;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--base-text-color);
+  background-color: var(--bg-site-color);
 }
 
 h1,
@@ -32,7 +35,20 @@ img {
   padding: 0 128px;
 }
 
-.flex {
-  display: flex;
-  justify-content: space-between;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.link {
+  text-decoration: none;
 }

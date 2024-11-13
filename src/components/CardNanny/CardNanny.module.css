@@ -23,9 +23,21 @@
   height: 96px;
 }
 
+.name {
+  margin-top: 8px;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 500;
+}
+
 .block1 {
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+}
+
+.text {
+  font-weight: 500;
+  color: var(--base-text-opacity-color);
 }
 
 .location {
@@ -55,6 +67,7 @@
 }
 
 .block4 {
+  margin-top: 24px;
   flex-wrap: wrap;
   column-gap: 8px;
   row-gap: 8px;
@@ -64,4 +77,24 @@
   padding: 8px 16px;
   border-radius: 24px;
   background-color: #f3f3f3;
+}
+
+.param span {
+  color: var(--base-text-opacity-color);
+}
+
+.about {
+  margin-top: 24px;
+  color: var(--base-text-opacity-color);
+}
+
+.btn {
+  margin-top: 14px;
+  padding: 0;
+  font-weight: 500;
+  background-color: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: solid 2px var(--base-text-color);
 }

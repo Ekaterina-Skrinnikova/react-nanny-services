@@ -1,10 +1,19 @@
-import sprite from "../../images/sprite.svg";
+import { useDispatch, useSelector } from "react-redux";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import Reviews from "../Reviews/Reviews";
-import css from "../CardNanny/CardNanny.module.css";
 import clsx from "clsx";
+import sprite from "../../images/sprite.svg";
+import css from "../CardNanny/CardNanny.module.css";
+import Reviews from "../Reviews/Reviews";
+import { expanded } from "../../redux/nannies/slice.js";
+import { selectIsExpanded } from "../../redux/nannies/selectors.js";
 
 export default function CardNanny({ nanny }) {
+  const dispatch = useDispatch();
+  const isExpanded = useSelector(selectIsExpanded);
+
+  const handleReadMoreClick = () => {
+    dispatch(expanded());
+  };
   return (
     <div className={clsx(css.wrapper, css.flex)}>
       <div className={css.imgWrapp}>
@@ -13,8 +22,8 @@ export default function CardNanny({ nanny }) {
       <div>
         <div className={clsx(css.flex, css.block1)}>
           <div>
-            <p>Nanny</p>
-            <p>{nanny.name}</p>
+            <p className={css.text}>Nanny</p>
+            <p className={css.name}>{nanny.name}</p>
           </div>
           <div className={clsx(css.flex, css.block3)}>
             <div className={clsx(css.flex, css.block2)}>
@@ -41,20 +50,38 @@ export default function CardNanny({ nanny }) {
         </div>
 
         <div className={clsx(css.flex, css.block4)}>
-          <div className={css.param}>Age:{nanny.birthday}</div>
-          <div className={css.param}>Kids ade: {nanny.kids_age}</div>
-          <div className={css.param}>Experience: {nanny.experience}</div>
           <div className={css.param}>
-            Characters:
+            <span>Age: </span>
+            {nanny.birthday}
+          </div>
+          <div className={css.param}>
+            <span>Kids age:</span> {nanny.kids_age}
+          </div>
+          <div className={css.param}>
+            <span>Experience:</span> {nanny.experience}
+          </div>
+          <div className={css.param}>
+            <span>Characters: </span>
             {nanny.characters.map((el, i) => (
               <span key={i}>{el}, </span>
             ))}
           </div>
-          <div className={css.param}>Education: {nanny.education}</div>
+          <div className={css.param}>
+            <span>Education: </span>
+            {nanny.education}
+          </div>
         </div>
-        <div>{nanny.about}</div>
-        <Reviews />
-        <button type="button">Read more</button>
+        <div className={css.about}>{nanny.about}</div>
+
+        {isExpanded && <Reviews nanny={nanny} />}
+
+        <button
+          className={clsx(isExpanded ? "visually-hidden" : css.btn)}
+          type="button"
+          onClick={handleReadMoreClick}
+        >
+          Read more
+        </button>
       </div>
     </div>
   );

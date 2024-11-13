@@ -5,6 +5,7 @@ const initialState = {
   nannies: [],
   nanny: null,
 
+  isExpanded: false,
   isLoading: false,
   error: null,
 };
@@ -12,7 +13,11 @@ const initialState = {
 const nanniesSlice = createSlice({
   name: "nannies",
   initialState,
-  reducers: {},
+  reducers: {
+    expanded: (state) => {
+      state.isExpanded = !state.isExpanded;
+    },
+  },
 
   extraReducers: (builder) =>
     builder
@@ -41,5 +46,7 @@ const nanniesSlice = createSlice({
         state.isLoading = false;
       }),
 });
+
+export const { expanded } = nanniesSlice.actions;
 
 export default nanniesSlice.reducer;

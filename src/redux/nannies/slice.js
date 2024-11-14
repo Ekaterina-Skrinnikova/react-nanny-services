@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllNannies, getNannyById } from "./operations";
+import { getFirstPage, getNextPage } from "./operations";
 
 const initialState = {
   nannies: [],
-  nanny: null,
 
+  perPage: 3,
+  lastVisibleKey: null,
   isExpanded: false,
   isLoading: false,
   error: null,
@@ -21,28 +22,31 @@ const nanniesSlice = createSlice({
 
   extraReducers: (builder) =>
     builder
-      .addCase(getAllNannies.pending, (state) => {
+      .addCase(getFirstPage.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getAllNannies.fulfilled, (state, action) => {
-        state.nannies = action.payload;
+      .addCase(getFirstPage.fulfilled, (state, action) => {
+        state.nannies = action.payload.items || [];
+        state.lastVisibleKey = action.payload.lastKey;
         state.isLoading = false;
       })
-      .addCase(getAllNannies.rejected, (state, action) => {
+      .addCase(getFirstPage.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       })
-      .addCase(getNannyById.pending, (state) => {
-        state.error = null;
+      .addCase(getNextPage.pending, (state) => {
         state.isLoading = true;
+        state.error = null;
       })
-      .addCase(getNannyById.fulfilled, (state, action) => {
-        state.nanny = action.payload;
+      .addCase(getNextPage.fulfilled, (state, action) => {
+        const newItems = action.payload.items || [];
+        state.nannies = [...state.nannies, ...newItems];
+        state.lastVisibleKey = action.payload.lastKey;
         state.isLoading = false;
       })
-      .addCase(getNannyById.rejected, (state, action) => {
-        state.error = action.error;
+      .addCase(getNextPage.rejected, (state, action) => {
+        state.error = action.payload;
         state.isLoading = false;
       }),
 });

@@ -15,9 +15,8 @@ export default function App() {
       <Suspense>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/nannies" element={<NanniesPage />}>
-            <Route path=":nannyId/reviews" element={<Reviews />} />
-          </Route>
+          <Route path="/nannies" element={<NanniesPage />} />
+
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registration" element={<RegistrationPage />} />
           <Route path="*" element={<HomePage />} />

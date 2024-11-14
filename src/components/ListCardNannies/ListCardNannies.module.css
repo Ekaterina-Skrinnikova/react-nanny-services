@@ -1,3 +1,19 @@
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 32px;
+}
+
+.space {
   margin-bottom: 32px;
+}
+
+.btn {
+  margin-bottom: 100px;
+  padding-left: 40px;
+  padding-right: 40px;
+  background-color: var(--base-site-color);
+  color: var(--text-site-color);
+  border-color: transparent;
 }

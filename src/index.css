@@ -4,8 +4,11 @@
 :root {
   --base-site-color: #103931;
   --base-text-color: #11101c;
+  --second-text-color: #8a8a89;
   --base-text-opacity-color: #11101c80;
+  --text-site-color: #fbfbfb;
   --bg-site-color: #fbfbfb;
 
   --accent-color: #f03f3b33;
+  --second-accent-color: #38cd3e;
 }

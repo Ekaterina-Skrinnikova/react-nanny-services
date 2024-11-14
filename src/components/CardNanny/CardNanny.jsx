@@ -8,12 +8,45 @@ import { expanded } from "../../redux/nannies/slice.js";
 import { selectIsExpanded } from "../../redux/nannies/selectors.js";
 
 export default function CardNanny({ nanny }) {
+  const arrayTitles = [
+    "Age",
+    "Kids age",
+    "Experience",
+    "Characters",
+    "Education",
+  ];
+  const arrayDescrips = [
+    "birthday",
+    "kids_age",
+    "experience",
+    "characters",
+    "education",
+  ];
   const dispatch = useDispatch();
   const isExpanded = useSelector(selectIsExpanded);
 
   const handleReadMoreClick = () => {
     dispatch(expanded());
   };
+
+  const getAge = (birthday) => {
+    const birthDateString = birthday;
+    const birthDate = new Date(birthDateString);
+    const currentDate = new Date();
+
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+
+    if (
+      currentDate.getMonth() > birthDate.getMonth() ||
+      (currentDate.getMonth() === birthDate.getMonth() &&
+        currentDate.getDate() >= birthDate.getDate())
+    ) {
+      age -= 1;
+    }
+
+    return age;
+  };
+
   return (
     <div className={clsx(css.wrapper, css.flex)}>
       <div className={css.imgWrapp}>
@@ -29,16 +62,18 @@ export default function CardNanny({ nanny }) {
             <div className={clsx(css.flex, css.block2)}>
               <div className={clsx(css.flex, css.location)}>
                 <HiOutlineLocationMarker className={css.icon} />
-                <p>{nanny.location}</p>
+                <p className={css.locationText}>{nanny.location}</p>
               </div>
               <div className={clsx(css.flex, css.location)}>
                 <svg className={css.icon}>
                   <use href={`${sprite}#icon-star`}></use>
                 </svg>
-                <p>Rating: {nanny.rating}</p>
+                <p className={css.locationText}>Rating: {nanny.rating}</p>
               </div>
               <div>
-                <p>Price/1 hour: {nanny.price_per_hour}$</p>
+                <p className={css.locationText}>
+                  Price/1 hour: <span>{nanny.price_per_hour}$</span>
+                </p>
               </div>
             </div>
             <div>
@@ -49,10 +84,23 @@ export default function CardNanny({ nanny }) {
           </div>
         </div>
 
-        <div className={clsx(css.flex, css.block4)}>
+        <ul className={clsx(css.flex, css.block4)}>
+          {arrayTitles.map((title, i) => {
+            return (
+              <li className={css.param} key={i}>
+                <span>{title}: </span>
+                {arrayDescrips[i] === "birthday"
+                  ? getAge(nanny[arrayDescrips[i]])
+                  : nanny[arrayDescrips[i]]}
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* <div className={clsx(css.flex, css.block4)}>
           <div className={css.param}>
             <span>Age: </span>
-            {nanny.birthday}
+            {getAge(nanny.birthday)}
           </div>
           <div className={css.param}>
             <span>Kids age:</span> {nanny.kids_age}
@@ -70,7 +118,8 @@ export default function CardNanny({ nanny }) {
             <span>Education: </span>
             {nanny.education}
           </div>
-        </div>
+        </div> */}
+
         <div className={css.about}>{nanny.about}</div>
 
         {isExpanded && <Reviews nanny={nanny} />}

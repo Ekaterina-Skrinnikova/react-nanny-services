@@ -14,13 +14,15 @@
   width: 120px;
   height: 120px;
   border-radius: 30px;
-  border-color: #f03f3b33;
+  border-color: var(--accent-color);
+  border-style: solid;
   border-width: 2px;
 }
 
 .img {
   width: 96px;
   height: 96px;
+  border-radius: 15px;
 }
 
 .name {
@@ -36,24 +38,37 @@
 }
 
 .text {
-  font-weight: 500;
-  color: var(--base-text-opacity-color);
+  font-weight: 600;
+  color: var(--second-text-color);
+}
+
+.block2 {
+  align-items: center;
+  column-gap: 16px;
 }
 
 .location {
+  padding-right: 16px;
   justify-content: space-between;
   align-items: center;
   column-gap: 4px;
 }
 
+.location:not(:last-child) {
+  border-right: 1px solid #11101c33;
+}
+
+.locationText {
+  font-weight: 600;
+}
+
+.locationText span {
+  color: var(--second-accent-color);
+}
+
 .icon {
   width: 16px;
   height: 16px;
-}
-
-.block2 {
-  align-items: center;
-  column-gap: 32px;
 }
 
 .block3 {
@@ -76,11 +91,13 @@
 .param {
   padding: 8px 16px;
   border-radius: 24px;
+  font-weight: 600;
   background-color: #f3f3f3;
 }
 
 .param span {
-  color: var(--base-text-opacity-color);
+  font-weight: 600;
+  color: var(--second-text-color);
 }
 
 .about {
@@ -91,7 +108,7 @@
 .btn {
   margin-top: 14px;
   padding: 0;
-  font-weight: 500;
+  font-weight: 600;
   background-color: transparent;
   border-top: none;
   border-left: none;

@@ -6,7 +6,7 @@
   padding: 24px;
   column-gap: 24px;
   border-radius: 24px;
-  background-color: white;
+  background-color: var(--bg-card-color);
 }
 
 .imgWrapp {

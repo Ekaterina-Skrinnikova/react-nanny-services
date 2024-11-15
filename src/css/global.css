@@ -114,25 +114,6 @@ img {
   margin-bottom: 12px;
 }
 
-/* .select-list::-webkit-scrollbar {
-  width: 7px;
-  background-color: #f8f9fa;
-  padding: 5px;
-} */
-
-/* .select-list::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #d9d9d9;
-} */
-
-/* .select-list .select-item {
-  position: relative;
-  border-top: 1px solid rgba(224, 229, 231, 0.5);
-  padding: 10px 15px;
-  cursor: pointer;
-  list-style-type: none;
-} */
-
-/* .select-list .select-item:hover {
-  background-color: rgba(224, 229, 231, 0.5);
-} */
+.select-item-active {
+  color: var(--base-text-color);
+}

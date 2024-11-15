@@ -11,36 +11,35 @@ import {
 } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 
-// export const getAllNannies = createAsyncThunk(
-//   "nannies/getAllNannies",
-//   async (_, thunkAPI) => {
-//     try {
-//       const dbRef = ref(db, "/");
-//       const DataSnapshot = await get(dbRef);
+export const getAllNannies = createAsyncThunk(
+  "nannies/getAllNannies",
+  async (_, thunkAPI) => {
+    try {
+      const dbRef = ref(db, "/");
+      const DataSnapshot = await get(dbRef);
 
-//       if (DataSnapshot.exists()) {
-//         const data = DataSnapshot.val();
+      if (DataSnapshot.exists()) {
+        const data = DataSnapshot.val();
 
-//         Object.keys(data).forEach((key) => {
-//           if (data[key].id) {
-//             const uniqueId = uuidv4();
-//             const recordRef = ref(db, `/${key}/id`);
-//             update(recordRef, { id: uniqueId });
-//           }
-//         });
+        Object.keys(data).forEach((key) => {
+          if (data[key].id) {
+            const uniqueId = uuidv4();
+            const recordRef = ref(db, `/${key}/id`);
+            update(recordRef, { id: uniqueId });
+          }
+        });
 
-//         console.log(data);
-//         return data;
-//       } else {
-//         console.log("No data available at the specified path.");
-//         return {};
-//       }
-//     } catch (error) {
-//       console.error("Error fetching data:", error);
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
+        return data;
+      } else {
+        console.log("No data available at the specified path.");
+        return {};
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 export const getFirstPage = createAsyncThunk(
   "nannies/getFirstPage",
@@ -53,7 +52,6 @@ export const getFirstPage = createAsyncThunk(
       if (snapshot.exists()) {
         const items = snapshot.val();
         const itemKeys = Object.keys(items);
-        // console.log(itemKeys);
         return { items, lastKey: itemKeys[itemKeys.length - 1] };
       } else {
         console.log("No data available");

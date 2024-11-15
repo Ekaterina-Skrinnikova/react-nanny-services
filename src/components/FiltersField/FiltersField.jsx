@@ -4,28 +4,42 @@ import sprite from "../../images/sprite.svg";
 import css from "../FiltersField/FiltersField.module.css";
 // import { selectFilters } from "../../redux/filters/selectors.js";
 // import { setFilters } from "../../redux/filters/slice.js";
-import { toggleIsOpenPopUp } from "../../redux/modal/slice.js";
-import { selectIsOpenPopUp } from "../../redux/modal/selectors.js";
+import { setSelectedItem, toggleIsOpenPopUp } from "../../redux/modal/slice.js";
+import {
+  selectIsOpenPopUp,
+  selectSelectedItem,
+} from "../../redux/modal/selectors.js";
 
 export default function FiltersField() {
   const dispatch = useDispatch();
   const isOpenPopUp = useSelector(selectIsOpenPopUp);
+  const selectedItem = useSelector(selectSelectedItem);
 
-  // const handleFiltersChange = (e) => {
-  //   dispatch(setFilters(e.target.value));
-  // };
+  const options = [
+    "A to Z",
+    "Z to A",
+    "Less than 10$",
+    "Greater than 10$",
+    "Popular",
+    "Not popular",
+    "Show all",
+  ];
 
   const handleButtonClick = () => {
     dispatch(toggleIsOpenPopUp());
   };
+
+  const handleOptionClick = (option) => {
+    dispatch(setSelectedItem(option));
+    dispatch(toggleIsOpenPopUp());
+  };
+
   return (
     <div className="select">
-      <label className={css.label} htmlFor="filter">
-        Filters
-      </label>
+      <p className={css.label}>Filters</p>
 
-      <input className="select-input" type="hidden" id="filter" />
-      <div className="select-head">Choose</div>
+      <div className="select-head">{selectedItem}</div>
+
       <button className="select-btn" type="button" onClick={handleButtonClick}>
         <svg className={css.svg}>
           <use href={`${sprite}#icon-chevron-down`}></use>
@@ -33,13 +47,19 @@ export default function FiltersField() {
       </button>
 
       <ul className={clsx(isOpenPopUp ? "select-list" : "visually-hidden")}>
-        <li className="select-item">A to Z</li>
-        <li className="select-item">Z to A</li>
-        <li className="select-item">Less than 10$</li>
-        <li className="select-item">Creater than 10$</li>
-        <li className="select-item">Popular</li>
-        <li className="select-item">Not popular</li>
-        <li className="select-item">Show all</li>
+        {options.map((option, i) => {
+          return (
+            <li
+              className={clsx("select-item", {
+                "select-item-active": selectedItem === option,
+              })}
+              key={i}
+              onClick={() => handleOptionClick(option)}
+            >
+              {option}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

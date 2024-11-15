@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import FiltersField from "../../components/FiltersField/FiltersField";
 import ListCardNannies from "../../components/ListCardNannies/ListCardNannies";
-import { getFirstPage } from "../../redux/nannies/operations.js";
+import { getAllNannies, getFirstPage } from "../../redux/nannies/operations.js";
 import { useEffect } from "react";
 import { selectPerPage } from "../../redux/nannies/selectors.js";
 
@@ -11,6 +11,7 @@ export default function Nannies() {
 
   useEffect(() => {
     dispatch(getFirstPage(perPage));
+    dispatch(getAllNannies());
   }, [dispatch]);
 
   return (

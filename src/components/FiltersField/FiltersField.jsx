@@ -2,8 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import sprite from "../../images/sprite.svg";
 import css from "../FiltersField/FiltersField.module.css";
-// import { selectFilters } from "../../redux/filters/selectors.js";
-// import { setFilters } from "../../redux/filters/slice.js";
 import { setSelectedItem, toggleIsOpenPopUp } from "../../redux/modal/slice.js";
 import {
   selectIsOpenPopUp,
@@ -25,7 +23,7 @@ export default function FiltersField() {
     "Show all",
   ];
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (e) => {
     dispatch(toggleIsOpenPopUp());
   };
 

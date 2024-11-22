@@ -1,9 +1,9 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { getAllNannies, getFirstPage, getNextPage } from "./operations";
 
 const initialState = {
   nanniesAll: [],
-  nanniesRender: [],
+  nannies: [],
 
   perPage: 3,
   lastVisibleKey: null,
@@ -40,7 +40,7 @@ const nanniesSlice = createSlice({
         state.error = null;
       })
       .addCase(getFirstPage.fulfilled, (state, action) => {
-        state.nanniesRender = action.payload.items || [];
+        state.nannies = action.payload.items || [];
         state.lastVisibleKey = action.payload.lastKey;
         state.isLoading = false;
       })
@@ -54,7 +54,7 @@ const nanniesSlice = createSlice({
       })
       .addCase(getNextPage.fulfilled, (state, action) => {
         const newItems = action.payload.items || [];
-        state.nanniesRender = [...state.nanniesRender, ...newItems];
+        state.nannies = [...state.nannies, ...newItems];
         state.lastVisibleKey = action.payload.lastKey;
         state.isLoading = false;
       })
@@ -64,36 +64,36 @@ const nanniesSlice = createSlice({
       }),
 });
 
-export const sortedNannies = createSelector(
-  [
-    (state) => state.nannies.nanniesRender,
-    (state) => state.nannies.nanniesAll,
-    (state) => state.modal.selectedItem,
-  ],
-  (nannies, nanniesAll, option) => {
-    if (!nannies || !nanniesAll) return [];
+// export const sortedNannies = createSelector(
+//   [
+//     (state) => state.nannies.nanniesRender,
+//     (state) => state.nannies.nanniesAll,
+//     (state) => state.modal.selectedItem,
+//   ],
+//   (nannies, nanniesAll, option) => {
+//     if (!nannies || !nanniesAll) return [];
 
-    switch (option) {
-      case "A to Z":
-        return [...nannies].sort((a, b) => a.name.localeCompare(b.name));
-      case "Z to A":
-        return [...nannies].sort((a, b) => b.name.localeCompare(a.name));
-      case "Less than 10$":
-        return [...nannies].filter((nanny) => nanny.price_per_hour <= 10);
-      case "More than 10$":
-        return [...nannies].filter((nanny) => nanny.price_per_hour > 10);
-      case "Popular":
-        return [...nannies].filter((nanny) => nanny.rating >= 4);
-      case "Not popular":
-        return [...nannies].filter((nanny) => nanny.rating < 4);
-      case "Show all":
-        return nanniesAll;
+//     switch (option) {
+//       case "A to Z":
+//         return [...nannies].sort((a, b) => a.name.localeCompare(b.name));
+//       case "Z to A":
+//         return [...nannies].sort((a, b) => b.name.localeCompare(a.name));
+//       case "Less than 10$":
+//         return [...nannies].filter((nanny) => nanny.price_per_hour <= 10);
+//       case "More than 10$":
+//         return [...nannies].filter((nanny) => nanny.price_per_hour > 10);
+//       case "Popular":
+//         return [...nannies].filter((nanny) => nanny.rating >= 4);
+//       case "Not popular":
+//         return [...nannies].filter((nanny) => nanny.rating < 4);
+//       case "Show all":
+//         return nanniesAll;
 
-      default:
-        return nannies;
-    }
-  }
-);
+//       default:
+//         return nannies;
+//     }
+//   }
+// );
 
 export const { expanded } = nanniesSlice.actions;
 

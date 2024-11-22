@@ -7,25 +7,36 @@ import {
   query,
   orderByKey,
   limitToFirst,
+  orderByChild,
+  endAt,
+  startAfter,
   startAt,
+  endBefore,
 } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
+
+const dbRef = ref(db, "/nannies");
+// console.log(dbRef);
 
 export const getAllNannies = createAsyncThunk(
   "nannies/getAllNannies",
   async (_, thunkAPI) => {
     try {
-      const dbRef = ref(db, "/");
       const DataSnapshot = await get(dbRef);
 
       if (DataSnapshot.exists()) {
         const data = DataSnapshot.val();
 
+        // const updateRef = ref(db, "nannies/27");
+        // update(updateRef, { rating: 3 });
         Object.keys(data).forEach((key) => {
-          if (data[key].id) {
+          if (!data[key].id && !data[key].name_lowercase) {
             const uniqueId = uuidv4();
-            const recordRef = ref(db, `/${key}/id`);
-            update(recordRef, { id: uniqueId });
+            const recordRef = ref(db, `/nannies/${key}`);
+            update(recordRef, {
+              id: uniqueId,
+              name_lowercase: data[key].name.toLowerCase(),
+            });
           }
         });
 
@@ -43,20 +54,128 @@ export const getAllNannies = createAsyncThunk(
 
 export const getFirstPage = createAsyncThunk(
   "nannies/getFirstPage",
-  async (perPage, thunkAPI) => {
+  async (option, thunkAPI) => {
     try {
-      const dbRef = ref(db, "/");
-      const firstPageQuery = query(dbRef, orderByKey(), limitToFirst(perPage));
+      console.log(option);
+      let firstPageQuery;
+
+      switch (option) {
+        case "A to Z": {
+          firstPageQuery = query(
+            dbRef,
+            orderByChild("name_lowercase")
+            // limitToFirst(perPage)
+          );
+
+          // console.log(firstPageQuery);
+
+          break;
+        }
+
+        case "Z to A": {
+          firstPageQuery = query(
+            dbRef,
+            orderByChild("name_lowercase")
+            // limitToFirst(perPage)
+          );
+          // console.log(firstPageQuery);
+          break;
+        }
+
+        case "Less than 10$": {
+          firstPageQuery = query(
+            dbRef,
+            orderByChild("price_per_hour"),
+            endBefore(10)
+            // limitToFirst(perPage)
+          );
+          // console.log(firstPageQuery);
+
+          break;
+        }
+
+        case "Greater than 10$": {
+          firstPageQuery = query(
+            dbRef,
+            orderByChild("price_per_hour"),
+            startAfter(10)
+            // limitToFirst(perPage)
+          );
+          // console.log(firstPageQuery);
+          break;
+        }
+
+        case "Popular": {
+          firstPageQuery = query(
+            dbRef,
+            orderByChild("rating"),
+            startAt(4)
+            // limitToFirst(perPage)
+          );
+          // console.log(firstPageQuery);
+          break;
+        }
+
+        case "Not popular": {
+          firstPageQuery = query(
+            dbRef,
+            orderByChild("rating"),
+            endBefore(4)
+            // limitToFirst(perPage)
+          );
+          // console.log(firstPageQuery);
+          break;
+        }
+
+        case "Show all": {
+          firstPageQuery = query(dbRef, orderByChild("name_lowercase"));
+
+          break;
+        }
+
+        default: {
+          firstPageQuery = query(
+            dbRef,
+            orderByChild("name_lowercase")
+            // limitToFirst(perPage)
+          );
+
+          break;
+        }
+      }
 
       const snapshot = await get(firstPageQuery);
+      // console.log(snapshot);
       if (snapshot.exists()) {
         const items = snapshot.val();
-        const itemKeys = Object.keys(items);
-        return { items, lastKey: itemKeys[itemKeys.length - 1] };
-      } else {
-        console.log("No data available");
-        return { items: null, lastKey: null };
+
+        if (!Array.isArray(items)) {
+          const itemsKey = Object.keys(items);
+
+          return {
+            items: Object.values(items),
+            lastKey: itemsKey[itemsKey.length - 1] || null,
+          };
+        }
+        console.log(items);
+
+        if (option === "Z to A") {
+          const itemsReverse = Object.values(items).reverse();
+          const itemsKey = Object.keys(itemsReverse);
+          console.log(itemsReverse);
+          return {
+            items: itemsReverse,
+            lastKey: itemsKey[itemsKey.length - 1],
+          };
+        }
+        const itemsKey = Object.keys(items);
+        // console.log(items);
+        return { items, lastKey: itemsKey[itemsKey.length - 1] || null };
       }
+
+      // console.log(items);
+
+      return { items: {}, lastKey: null };
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error.message);
@@ -66,7 +185,7 @@ export const getFirstPage = createAsyncThunk(
 
 export const getNextPage = createAsyncThunk(
   "nannies/getNextPage",
-  async ({ lastVisibleKey, perPage }, thunkAPI) => {
+  async ({ lastVisibleKey, perPage, option }, thunkAPI) => {
     try {
       const dbRef = ref(db, "/");
       const nextPageQuery = query(

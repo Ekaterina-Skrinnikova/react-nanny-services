@@ -1,3 +1,5 @@
+import css from "../Logo/Logo.module.css";
+
 export default function Logo() {
-  return <p>Nanny.Services</p>;
+  return <p className={css.logo}>Nanny.Services</p>;
 }

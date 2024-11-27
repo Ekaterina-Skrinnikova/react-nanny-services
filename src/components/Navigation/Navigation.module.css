@@ -1,0 +1,26 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+  column-gap: 40px;
+}
+
+.link {
+  color: var(--text-site-color);
+}
+
+.link.active {
+  position: relative;
+}
+
+.link.active::after {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-image: url(../../images/circle.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}

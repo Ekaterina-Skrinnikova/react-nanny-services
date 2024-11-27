@@ -24,6 +24,10 @@ ol {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 img {
   display: block;
   /* max-width: 100%; */
@@ -51,6 +55,10 @@ img {
 
 .link {
   text-decoration: none;
+}
+
+.flex {
+  display: flex;
 }
 
 .select-input {

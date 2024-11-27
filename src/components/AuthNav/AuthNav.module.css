@@ -1,0 +1,22 @@
+.wrapper {
+  margin-left: 92px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+}
+
+.link {
+  padding: 14px 40px;
+  border-radius: 30px;
+  color: var(--text-site-color);
+}
+
+/* var(--border-color) */
+
+.linkLogin {
+  border: 1px solid var(--border-color);
+}
+
+.linkReg {
+  background-color: var(--base-site-color);
+}

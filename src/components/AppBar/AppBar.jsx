@@ -5,7 +5,7 @@ import css from "../../components/AppBar/AppBar.module.css";
 
 export default function AppBar() {
   return (
-    <header className="container">
+    <header className={css.container}>
       <div className={css.wrapper}>
         <Logo />
         <Navigation />

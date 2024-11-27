@@ -15,7 +15,7 @@ export default function Nannies() {
 
   useEffect(() => {
     dispatch(getAllNannies());
-    dispatch(getFirstPage(option));
+    dispatch(getFirstPage({ perPage, option }));
   }, [dispatch, option]);
 
   return (

@@ -34,8 +34,8 @@ export default function ListCardNannies() {
     <div className={css.wrapper}>
       <ul>
         {nannies && nannies.length > 0 ? (
-          nannies.map((nanny) => (
-            <li className={css.space} key={nanny.id}>
+          nannies.map((nanny, i) => (
+            <li className={css.space} key={i}>
               <CardNanny nanny={nanny} />
             </li>
           ))

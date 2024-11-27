@@ -1,6 +1,18 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border: 1px solid #fbfbfb66;
+}
+
 .wrapper {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  margin: 0 auto;
+  max-width: 1376px;
+  padding: 20px 96px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  align-items: center;
+  color: var(--text-site-color);
+  /* background: var(--base-site-color); */
 }

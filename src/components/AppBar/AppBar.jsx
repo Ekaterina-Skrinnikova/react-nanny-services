@@ -1,7 +1,8 @@
 import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
-import AuthNav from "../AuthNav/AuthNav";
+// import AuthNav from "../AuthNav/AuthNav";
 import css from "../../components/AppBar/AppBar.module.css";
+import UserMenu from "../UserMenu/UserMenu";
 
 export default function AppBar() {
   return (
@@ -9,7 +10,8 @@ export default function AppBar() {
       <div className={css.wrapper}>
         <Logo />
         <Navigation />
-        <AuthNav />
+        {/* <AuthNav /> */}
+        <UserMenu />
       </div>
     </header>
   );

@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import Button from "../Button/Button";
+import css from "../LogInForm/LogInForm.module.css";
+import sprite from "../../images/sprite.svg";
 
 export default function LogInForm() {
   const {
@@ -18,32 +20,49 @@ export default function LogInForm() {
   };
 
   return (
-    <div>
-      <h2>Log In</h2>
-      <p>
-        Welcome back! Please enter your credentials to access your account and
-        continue your babysitter search.
-      </p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          {...register("email", {
-            required: true,
-            pattern: /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/,
-          })}
-          placeholder="Email"
-        />
-        {errors.email && <span>Format email is wrong</span>}
+    <div className={css.backdrop}>
+      <div className={css.wrapper}>
+        <h2 className={css.title}>Log In</h2>
+        <p className={css.text}>
+          Welcome back! Please enter your credentials to access your account and
+          continue your babysitter search.
+        </p>
+        <button className={css.btnClose}>
+          <svg className={css.iconClose}>
+            <use href={`${sprite}#icon-x`}></use>
+          </svg>
+        </button>
+        <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
+          <div className={css.wrap}>
+            <input
+              className={css.input}
+              {...register("email", {
+                required: true,
+                pattern: /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/,
+              })}
+              placeholder="Email"
+            />
+            {errors.email && (
+              <span className={css.error}>Format email is wrong</span>
+            )}
 
-        <input
-          {...register("password", {
-            required: true,
-          })}
-          placeholder="Password"
-        />
-        {errors.password && <span>Format email is wrong</span>}
+            <input
+              className={css.input}
+              {...register("password", {
+                required: true,
+              })}
+              placeholder="Password"
+            />
+            {errors.password && (
+              <span className={css.error}>Format email is wrong</span>
+            )}
+          </div>
 
-        <Button type="submit">Log In</Button>
-      </form>
+          <Button className={css.button} type="submit">
+            Log In
+          </Button>
+        </form>
+      </div>
     </div>
   );
 }

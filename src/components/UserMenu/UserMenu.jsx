@@ -1,8 +1,17 @@
 import css from "../UserMenu/UserMenu.module.css";
 import sprite from "../../images/sprite.svg";
 import Button from "../Button/Button";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/users/operations";
 
 export default function UserMenu() {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    console.log("logout");
+  };
+
   return (
     <div className={css.wrap}>
       <div className={css.wrap}>
@@ -11,7 +20,7 @@ export default function UserMenu() {
         </svg>
         <p>Name</p>
       </div>
-      <Button className={css.button} type="button">
+      <Button onClick={handleLogout} className={css.button} type="button">
         Log out
       </Button>
     </div>

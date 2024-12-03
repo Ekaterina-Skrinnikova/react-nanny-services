@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  signOut,
 } from "firebase/auth/cordova";
 
 export const registration = createAsyncThunk(
@@ -58,3 +59,13 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+  try {
+    await signOut(auth);
+    console.log("logout");
+  } catch (error) {
+    console.log("err:", error);
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});

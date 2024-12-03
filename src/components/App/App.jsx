@@ -33,6 +33,13 @@ export default function App() {
             }
           />
 
+          <Route
+            path="/logout"
+            element={
+              <RestrictedRoute component={<LoginPage />} redirectTo="/" />
+            }
+          />
+
           <Route path="/nannies" element={<NanniesPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
 

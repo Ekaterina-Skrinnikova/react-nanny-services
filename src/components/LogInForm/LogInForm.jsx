@@ -4,6 +4,7 @@ import css from "../LogInForm/LogInForm.module.css";
 import sprite from "../../images/sprite.svg";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/users/operations";
+import { closeModalLogin } from "../../redux/modal/slice";
 
 export default function LogInForm() {
   const dispatch = useDispatch();
@@ -23,6 +24,11 @@ export default function LogInForm() {
     dispatch(login(data));
     console.log(data);
     reset();
+    dispatch(closeModalLogin());
+  };
+
+  const handleCloseLogin = () => {
+    dispatch(closeModalLogin());
   };
 
   return (
@@ -33,7 +39,7 @@ export default function LogInForm() {
           Welcome back! Please enter your credentials to access your account and
           continue your babysitter search.
         </p>
-        <button className={css.btnClose}>
+        <button className={css.btnClose} onClick={handleCloseLogin}>
           <svg className={css.iconClose}>
             <use href={`${sprite}#icon-x`}></use>
           </svg>

@@ -5,9 +5,12 @@ import { getAllNannies, getFirstPage } from "../../redux/nannies/operations.js";
 import { useEffect } from "react";
 import { selectPerPage } from "../../redux/nannies/selectors.js";
 import { selectSelectedItem } from "../../redux/modal/selectors.js";
+// import { selectIsLoggedIn } from "../../redux/users/selectors.js";
 
 export default function Nannies() {
   const dispatch = useDispatch();
+
+  // const isLoggedIn = useSelector(selectIsLoggedIn);
   const perPage = useSelector(selectPerPage);
   const option = useSelector(selectSelectedItem);
   // console.log(perPage);

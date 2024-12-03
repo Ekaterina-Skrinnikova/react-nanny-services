@@ -2,10 +2,13 @@ import { useForm } from "react-hook-form";
 import Button from "../Button/Button";
 import css from "../RegistrationForm/RegistrationForm.module.css";
 import sprite from "../../images/sprite.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registration } from "../../redux/users/operations";
+// import { selectIsOpenModal } from "../../redux/modal/selectors";
+import { closeModalReg } from "../../redux/modal/slice";
 
 export default function RegisterForm() {
+  // const isOpenModal = useSelector(selectIsOpenModal);
   const dispatch = useDispatch();
   const {
     register,
@@ -19,6 +22,11 @@ export default function RegisterForm() {
     console.log("data", data);
     console.log("data-JSON", JSON.stringify(data));
     reset();
+    dispatch(closeModalReg());
+  };
+
+  const handleCloseModal = () => {
+    dispatch(closeModalReg());
   };
 
   return (
@@ -30,7 +38,7 @@ export default function RegisterForm() {
           need some information. Please provide us with the following
           information
         </p>
-        <button className={css.btnClose}>
+        <button className={css.btnClose} onClick={handleCloseModal}>
           <svg className={css.iconClose}>
             <use href={`${sprite}#icon-x`}></use>
           </svg>

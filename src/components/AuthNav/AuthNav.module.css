@@ -5,7 +5,7 @@
   column-gap: 8px;
 }
 
-.link {
+.button {
   padding: 14px 40px;
   border-radius: 30px;
   color: var(--text-site-color);
@@ -13,10 +13,12 @@
 
 /* var(--border-color) */
 
-.linkLogin {
+.btnLogin {
+  background-color: transparent;
   border: 1px solid var(--border-color);
 }
 
-.linkReg {
+.btnReg {
   background-color: var(--base-site-color);
+  border: none;
 }

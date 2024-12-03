@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import "../App/App";
 import LoginPage from "../../pages/LoginPage/LoginPage";
-import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
+// import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
 import Layout from "../Layout/Layout";
 import FavoritesPage from "../../pages/FavoritesPage/FavoritesPage";
 import RestrictedRoute from "../RestrictedRoute";
@@ -16,22 +16,6 @@ export default function App() {
       <Suspense>
         <Routes>
           <Route path="/" element={<HomePage />} />
-
-          <Route
-            path="/registration"
-            element={
-              <RestrictedRoute
-                component={<RegistrationPage />}
-                redirectTo="/"
-              />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <RestrictedRoute component={<LoginPage />} redirectTo="/" />
-            }
-          />
 
           <Route
             path="/logout"

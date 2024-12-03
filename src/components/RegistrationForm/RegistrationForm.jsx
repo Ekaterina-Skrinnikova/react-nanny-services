@@ -2,16 +2,23 @@ import { useForm } from "react-hook-form";
 import Button from "../Button/Button";
 import css from "../RegistrationForm/RegistrationForm.module.css";
 import sprite from "../../images/sprite.svg";
+import { useDispatch } from "react-redux";
+import { registration } from "../../redux/users/operations";
 
 export default function RegisterForm() {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    reset,
+  } = useForm({ valuesDefault: { name: "", email: "", password: "" } });
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(registration(data));
+    console.log("data", data);
+    console.log("data-JSON", JSON.stringify(data));
+    reset();
   };
 
   return (

@@ -2,12 +2,16 @@ import { useForm } from "react-hook-form";
 import Button from "../Button/Button";
 import css from "../LogInForm/LogInForm.module.css";
 import sprite from "../../images/sprite.svg";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/users/operations";
 
 export default function LogInForm() {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       email: "",
@@ -16,7 +20,9 @@ export default function LogInForm() {
   });
 
   const onSubmit = (data) => {
+    dispatch(login(data));
     console.log(data);
+    reset();
   };
 
   return (

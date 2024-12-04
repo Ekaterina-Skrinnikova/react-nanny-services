@@ -5,8 +5,10 @@ import sprite from "../../images/sprite.svg";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/users/operations";
 import { closeModalLogin } from "../../redux/modal/slice";
+import { useNavigate } from "react-router-dom";
 
 export default function LogInForm() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     register,
@@ -22,9 +24,10 @@ export default function LogInForm() {
 
   const onSubmit = (data) => {
     dispatch(login(data));
-    console.log(data);
+    // console.log(data);
     reset();
     dispatch(closeModalLogin());
+    navigate("/nannies");
   };
 
   const handleCloseLogin = () => {

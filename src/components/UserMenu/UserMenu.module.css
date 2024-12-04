@@ -12,6 +12,6 @@
 .button {
   padding: 14px 39px;
   background-color: var(--base-site-color);
-  border: none;
+  border: 1px solid var(--border-color);
   color: var(--text-site-color);
 }

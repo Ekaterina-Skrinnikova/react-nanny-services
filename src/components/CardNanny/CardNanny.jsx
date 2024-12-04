@@ -51,6 +51,9 @@ export default function CardNanny({ nanny }) {
     <div className={clsx(css.wrapper, css.flex)}>
       <div className={css.imgWrapp}>
         <img className={css.img} src={nanny.avatar_url} alt="photo nanny's" />
+        <svg className={css.iconGreenDot}>
+          <use href={`${sprite}#icon-green-dot`}></use>
+        </svg>
       </div>
       <div>
         <div className={clsx(css.flex, css.block1)}>
@@ -88,10 +91,23 @@ export default function CardNanny({ nanny }) {
           {arrayTitles.map((title, i) => {
             return (
               <li className={css.param} key={i}>
-                <span>{title}: </span>
-                {arrayDescrips[i] === "birthday"
-                  ? getAge(nanny[arrayDescrips[i]])
-                  : nanny[arrayDescrips[i]]}
+                <span className={css.title}>{title}: </span>
+                {arrayDescrips[i] === "birthday" ? (
+                  <span className={css.age}>
+                    {getAge(nanny[arrayDescrips[i]])}
+                  </span>
+                ) : arrayDescrips[i] === "characters" ? (
+                  nanny[arrayDescrips[i]].map((el, index) => {
+                    if (index < nanny[arrayDescrips[i]].length - 1) {
+                      return (
+                        el.charAt(0).toUpperCase() + el.slice(1) + "," + " "
+                      );
+                    }
+                    return el.charAt(0).toUpperCase() + el.slice(1);
+                  })
+                ) : (
+                  nanny[arrayDescrips[i]]
+                )}
               </li>
             );
           })}

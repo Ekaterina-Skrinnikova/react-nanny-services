@@ -13,13 +13,6 @@
   color: var(--second-text-color);
 }
 
-/* .input {
-  padding: 14px 18px;
-  border-radius: 14px;
-  border: transparent;
-  background-color: var(--base-site-color);
-} */
-
 .input::placeholder {
   font-size: 18px;
   line-height: calc(20 / 18);

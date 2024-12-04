@@ -10,6 +10,7 @@
 }
 
 .imgWrapp {
+  position: relative;
   padding: 12px;
   width: 120px;
   height: 120px;
@@ -23,6 +24,14 @@
   width: 96px;
   height: 96px;
   border-radius: 15px;
+}
+
+.iconGreenDot {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 14px;
+  height: 14px;
 }
 
 .name {
@@ -95,9 +104,14 @@
   background-color: #f3f3f3;
 }
 
-.param span {
+.title {
   font-weight: 600;
   color: var(--second-text-color);
+}
+
+.age {
+  text-decoration: underline;
+  color: var(--base-text-color);
 }
 
 .about {

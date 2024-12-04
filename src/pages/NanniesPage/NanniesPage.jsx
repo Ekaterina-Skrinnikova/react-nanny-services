@@ -5,6 +5,7 @@ import { getAllNannies, getFirstPage } from "../../redux/nannies/operations.js";
 import { useEffect } from "react";
 import { selectPerPage } from "../../redux/nannies/selectors.js";
 import { selectSelectedItem } from "../../redux/modal/selectors.js";
+import css from "../NanniesPage/NanniesPage.module.css";
 // import { selectIsLoggedIn } from "../../redux/users/selectors.js";
 
 export default function Nannies() {
@@ -23,8 +24,10 @@ export default function Nannies() {
 
   return (
     <div className="container">
-      <FiltersField />
-      <ListCardNannies />
+      <div className={css.wrapper}>
+        <FiltersField />
+        <ListCardNannies />
+      </div>
     </div>
   );
 }

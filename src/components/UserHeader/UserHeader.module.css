@@ -1,0 +1,20 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border: 1px solid #fbfbfb66;
+  background: var(--base-site-color);
+  z-index: 100;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 30px 128px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-site-color);
+  /* background: var(--base-site-color); */
+}

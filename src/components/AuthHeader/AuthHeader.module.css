@@ -1,0 +1,25 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border: 1px solid #fbfbfb66;
+  z-index: 100;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 1376px;
+  padding: 20px 96px;
+  display: flex;
+  align-items: center;
+  color: var(--text-site-color);
+}
+
+.box:first-child {
+  margin-right: 487px;
+}
+
+.box:last-child {
+  margin-left: 92px;
+}

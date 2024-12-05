@@ -9,6 +9,7 @@
   align-items: center;
   background-color: #0b0b0b99;
   pointer-events: auto;
+  z-index: 101;
 }
 
 .wrapper {

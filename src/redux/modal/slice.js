@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isOpenModalReg: false,
   isOpenModalLogin: false,
+  isOpenModalMakeAppointment: false,
 
   isOpenPopUp: false,
   selectedItem: "A to Z",
@@ -35,6 +36,14 @@ const modalSlice = createSlice({
     closeModalLogin: (state) => {
       state.isOpenModalLogin = false;
     },
+
+    openModalMakeAppointment: (state) => {
+      state.isOpenModalMakeAppointment = true;
+    },
+
+    closeModalMakeAppointment: (state) => {
+      state.isOpenModalMakeAppointment = false;
+    },
   },
 });
 
@@ -45,6 +54,8 @@ export const {
   closeModalReg,
   openModalLogin,
   closeModalLogin,
+  openModalMakeAppointment,
+  closeModalMakeAppointment,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;

@@ -2,9 +2,16 @@ import clsx from "clsx";
 import sprite from "../../images/sprite.svg";
 import css from "../Reviews/Reviews.module.css";
 import Button from "../Button/Button";
+import { useDispatch } from "react-redux";
+import { openModalMakeAppointment } from "../../redux/modal/slice";
 
 export default function Reviews({ nanny }) {
+  const dispatch = useDispatch();
   const responses = nanny.reviews;
+
+  const handleOpenModalMakeAppointment = () => {
+    dispatch(openModalMakeAppointment());
+  };
 
   return (
     <div className={css.wrapper}>
@@ -31,7 +38,11 @@ export default function Reviews({ nanny }) {
       ) : (
         <div>Reviews is not founded</div>
       )}
-      <Button type="submit" className={css.btn}>
+      <Button
+        type="submit"
+        className={css.btn}
+        onClick={handleOpenModalMakeAppointment}
+      >
         Make an appointment
       </Button>
     </div>

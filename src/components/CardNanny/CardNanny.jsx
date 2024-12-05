@@ -113,29 +113,6 @@ export default function CardNanny({ nanny }) {
           })}
         </ul>
 
-        {/* <div className={clsx(css.flex, css.block4)}>
-          <div className={css.param}>
-            <span>Age: </span>
-            {getAge(nanny.birthday)}
-          </div>
-          <div className={css.param}>
-            <span>Kids age:</span> {nanny.kids_age}
-          </div>
-          <div className={css.param}>
-            <span>Experience:</span> {nanny.experience}
-          </div>
-          <div className={css.param}>
-            <span>Characters: </span>
-            {nanny.characters.map((el, i) => (
-              <span key={i}>{el}, </span>
-            ))}
-          </div>
-          <div className={css.param}>
-            <span>Education: </span>
-            {nanny.education}
-          </div>
-        </div> */}
-
         <div className={css.about}>{nanny.about}</div>
 
         {isExpanded && <Reviews nanny={nanny} />}

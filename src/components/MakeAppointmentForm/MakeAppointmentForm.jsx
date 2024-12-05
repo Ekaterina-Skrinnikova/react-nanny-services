@@ -4,10 +4,11 @@ import Button from "../Button/Button";
 import { registration } from "../../redux/users/operations";
 import { closeModalMakeAppointment } from "../../redux/modal/slice";
 import Modal from "../Modal/Modal";
-import css from "../RegistrationForm/RegistrationForm.module.css";
+import css from "../MakeAppointmentForm/MakeAppointmentForm.module.css";
 
-export default function MakeAppointmentForm() {
+export default function MakeAppointmentForm({ nanny }) {
   const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -32,7 +33,7 @@ export default function MakeAppointmentForm() {
   };
 
   return (
-    <Modal modalClose={closeModalMakeAppointment()}>
+    <Modal modalClose={closeModalMakeAppointment()} className={css.width}>
       <h2 className={css.title}>Make an appointment with a babysitter</h2>
       <p className={css.text}>
         Arranging a meeting with a caregiver for your child is the first step to
@@ -40,19 +41,18 @@ export default function MakeAppointmentForm() {
         we can match you with the perfect care partner.
       </p>
 
-      <div>
+      <div className={css.block}>
+        <img className={css.photo} src={nanny.avatar_url} alt="nanny`s photo" />
+
         <div>
-          <img src="" alt="" />
-        </div>
-        <div>
-          <p>Your nanny</p>
-          <p>NAME</p>
+          <p className={css.yourNanny}>Your nanny</p>
+          <p className={css.name}>{nanny.name}</p>
         </div>
       </div>
 
       <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={css.wrap}>
-          <div>
+          <div className={css.blockInput}>
             <input className={css.input} />
             {errors.email && (
               <span className={css.error}>Format email is wrong</span>
@@ -63,7 +63,7 @@ export default function MakeAppointmentForm() {
             )}
           </div>
 
-          <div>
+          <div className={css.blockInput}>
             <input className={css.input} />
             {errors.email && (
               <span className={css.error}>Format email is wrong</span>

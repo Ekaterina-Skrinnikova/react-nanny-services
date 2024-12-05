@@ -1,9 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import clsx from "clsx";
 import css from "../Modal/Modal.module.css";
 import sprite from "../../images/sprite.svg";
 
-export default function Modal({ children, modalClose }) {
+export default function Modal({ children, modalClose, className }) {
   const dispatch = useDispatch();
 
   const handleCloseBackdrop = (e) => {
@@ -35,7 +36,7 @@ export default function Modal({ children, modalClose }) {
 
   return (
     <div className={css.backdrop} id="backdrop">
-      <div className={css.wrapper}>
+      <div className={clsx(css.wrapper, className)}>
         <button className={css.btnClose} onClick={closeModal}>
           <svg className={css.iconClose}>
             <use href={`${sprite}#icon-x`}></use>

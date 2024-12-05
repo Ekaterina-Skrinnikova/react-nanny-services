@@ -4,18 +4,11 @@ import ListCardNannies from "../../components/ListCardNannies/ListCardNannies";
 import { getAllNannies, getFirstPage } from "../../redux/nannies/operations.js";
 import { useEffect } from "react";
 import { selectPerPage } from "../../redux/nannies/selectors.js";
-import {
-  selectIsOpenModalMakeAppointment,
-  selectSelectedItem,
-} from "../../redux/modal/selectors.js";
+import { selectSelectedItem } from "../../redux/modal/selectors.js";
 import css from "../NanniesPage/NanniesPage.module.css";
-import MakeAppointmentForm from "../../components/MakeAppointmentForm/MakeAppointmentForm.jsx";
 // import { selectIsLoggedIn } from "../../redux/users/selectors.js";
 
 export default function Nannies() {
-  const isOpenModalMakeAppointment = useSelector(
-    selectIsOpenModalMakeAppointment
-  );
   const dispatch = useDispatch();
 
   // const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -37,7 +30,6 @@ export default function Nannies() {
           <ListCardNannies />
         </div>
       </div>
-      {isOpenModalMakeAppointment && <MakeAppointmentForm />}
     </>
   );
 }

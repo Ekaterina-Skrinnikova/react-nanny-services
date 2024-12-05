@@ -1,15 +1,18 @@
 import css from "../UserMenu/UserMenu.module.css";
 import sprite from "../../images/sprite.svg";
 import Button from "../Button/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/users/operations";
+import { selectUserName } from "../../redux/users/selectors";
 
 export default function UserMenu() {
   const dispatch = useDispatch();
 
+  const userName = useSelector(selectUserName);
+  console.log(userName);
+
   const handleLogout = () => {
     dispatch(logout());
-    console.log("logout");
   };
 
   return (
@@ -18,7 +21,7 @@ export default function UserMenu() {
         <svg className={css.iconPerson}>
           <use href={`${sprite}#icon-person`}></use>
         </svg>
-        <p>Name</p>
+        <p>{userName}</p>
       </div>
       <Button onClick={handleLogout} className={css.button} type="button">
         Log out

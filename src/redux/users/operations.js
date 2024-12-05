@@ -20,10 +20,6 @@ export const registration = createAsyncThunk(
 
       await updateProfile(user, { displayName: name });
 
-      console.log(userCredential);
-      console.log("User registered:", userCredential.user);
-      console.log("User registered:", typeof userCredential.user);
-      console.log("Користувача зареєстровано з іменем:", user.displayName);
       return {
         uid: user.uid,
         name: user.displayName,
@@ -48,11 +44,11 @@ export const login = createAsyncThunk(
 
       const user = userCredential.user;
 
-      console.log(userCredential);
-      console.log("User registered:", userCredential.user);
-      console.log("Користувача зареєстровано з іменем:", user.displayName);
-
-      return { uid: user.uid, name: user.displayName, email: user.email };
+      return {
+        uid: user.uid,
+        name: user.displayName,
+        email: user.email,
+      };
     } catch (error) {
       console.log("error:", error);
       return thunkAPI.rejectWithValue(error.message);

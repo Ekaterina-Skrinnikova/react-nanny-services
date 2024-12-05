@@ -7,11 +7,8 @@ import supportReducer from "../redux/support/slice";
 // save state to localStorage
 const saveToLocalStorage = (state) => {
   try {
-    const serializedState = JSON.stringify({
-      auth: state.auth,
-      support: state.support,
-    });
-    localStorage.setItem("authData", serializedState);
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem("stateData", serializedState);
   } catch (error) {
     console.error("State isn`t save:", error);
   }
@@ -20,7 +17,7 @@ const saveToLocalStorage = (state) => {
 // load state from localStorage
 const loadFromLocalStorage = () => {
   try {
-    const serializedState = localStorage.getItem("authData");
+    const serializedState = localStorage.getItem("stateData");
     if (!serializedState) return undefined;
     return JSON.parse(serializedState);
   } catch (error) {

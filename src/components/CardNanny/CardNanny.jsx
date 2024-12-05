@@ -6,8 +6,13 @@ import css from "../CardNanny/CardNanny.module.css";
 import Reviews from "../Reviews/Reviews";
 import { expanded } from "../../redux/nannies/slice.js";
 import { selectIsExpanded } from "../../redux/nannies/selectors.js";
+import { selectIsOpenModalMakeAppointment } from "../../redux/modal/selectors.js";
+import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm.jsx";
 
 export default function CardNanny({ nanny }) {
+  const isOpenModalMakeAppointment = useSelector(
+    selectIsOpenModalMakeAppointment
+  );
   const arrayTitles = [
     "Age",
     "Kids age",
@@ -125,6 +130,7 @@ export default function CardNanny({ nanny }) {
           Read more
         </button>
       </div>
+      {isOpenModalMakeAppointment && <MakeAppointmentForm nanny={nanny} />}
     </div>
   );
 }

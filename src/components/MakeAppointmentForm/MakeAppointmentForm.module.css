@@ -71,6 +71,19 @@
   color: var(--base-text-color);
 }
 
+.textarea {
+  padding: 16px 18px;
+  height: 116px;
+  background-color: var(--bg-card-color);
+  border-radius: 12px;
+  border: 1px solid #11101c1a;
+  resize: none;
+}
+
+.textarea::placeholder {
+  color: var(--base-text-color);
+}
+
 .error {
   font-size: 14px;
   color: orangered;

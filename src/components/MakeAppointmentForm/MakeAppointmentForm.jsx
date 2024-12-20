@@ -53,22 +53,30 @@ export default function MakeAppointmentForm({ nanny }) {
       <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={css.wrap}>
           <div className={css.blockInput}>
-            <input className={css.input} />
+            <input
+              className={css.input}
+              placeholder="Address"
+              {...register("address", { required: true, maxLength: 30 })}
+            />
             {errors.email && (
               <span className={css.error}>Format email is wrong</span>
             )}
-            <input className={css.input} />
+            <input className={css.input} type="tel" placeholder="+380" />
             {errors.email && (
               <span className={css.error}>Format email is wrong</span>
             )}
           </div>
 
           <div className={css.blockInput}>
-            <input className={css.input} />
+            <input
+              className={css.input}
+              type="number"
+              placeholder="Child's age"
+            />
             {errors.email && (
               <span className={css.error}>Format email is wrong</span>
             )}
-            <input className={css.input} />
+            <input className={css.input} type="time" />
             {errors.email && (
               <span className={css.error}>Format email is wrong</span>
             )}
@@ -88,21 +96,21 @@ export default function MakeAppointmentForm({ nanny }) {
 
           <input
             className={css.input}
-            {...register("password", {
+            {...register("name", {
               required: true,
             })}
-            placeholder="Password"
+            placeholder="Father's or mother's name"
           />
           {errors.password && (
             <span className={css.error}>Format email is wrong</span>
           )}
 
-          <input
-            className={css.input}
-            {...register("password", {
-              required: true,
+          <textarea
+            className={css.textarea}
+            {...register("comment", {
+              required: false,
             })}
-            placeholder="Password"
+            placeholder="Comment"
           />
           {errors.password && (
             <span className={css.error}>Format email is wrong</span>

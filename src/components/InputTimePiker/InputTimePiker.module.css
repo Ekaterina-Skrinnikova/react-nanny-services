@@ -1,11 +1,12 @@
 .timePiker {
   position: relative;
-  margin-top: 100px;
-  width: 232px;
+  margin: 100px;
+  max-width: 232px;
+  height: 60px;
 }
 
 .timeInput {
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   padding: 16px 18px;
   background-color: var(--bg-card-color);
   border-radius: 12px;
@@ -22,13 +23,14 @@
   cursor: pointer;
 }
 
-.timeDropDown {
+.timeDropdown {
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 100%;
   right: 0;
   width: 151px;
+  height: 180px;
   border-radius: 12px;
   padding: 16px;
   background-color: #fff;
@@ -45,6 +47,7 @@
   align-items: center;
   row-gap: 4px;
   text-align: center;
+  overflow-y: hidden;
 }
 
 .timeOption {
@@ -53,6 +56,11 @@
   align-items: center;
   width: 87px;
   height: 24px;
+  color: #11101c4d;
+}
+
+.timeOptionActive {
+  color: var(--base-text-color);
 }
 
 .timeOption span {

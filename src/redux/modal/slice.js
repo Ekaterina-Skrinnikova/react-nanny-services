@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   isOpenModalReg: false,
@@ -6,8 +6,10 @@ const initialState = {
   isOpenModalMakeAppointment: false,
 
   isOpenPopUp: false,
-  IsOpenTimePicker: false,
+  isToggleTimePicker: false,
   selectedItem: "A to Z",
+  selectedTimeOption: null,
+  currentIndex: 3,
 };
 
 const modalSlice = createSlice({
@@ -18,12 +20,20 @@ const modalSlice = createSlice({
       state.isOpenPopUp = !state.isOpenPopUp;
     },
 
-    toggleIsOpenTimePicker: (state) => {
-      state.IsOpenTimePicker = !state.IsOpenTimePicker;
+    toggleTimePicker: (state) => {
+      state.isToggleTimePicker = !state.isToggleTimePicker;
     },
 
     setSelectedItem: (state, action) => {
       state.selectedItem = action.payload;
+    },
+
+    setSelectedTimeOption: (state, action) => {
+      state.selectedTimeOption = action.payload;
+    },
+
+    setCurrentIndex: (state, action) => {
+      state.currentIndex = action.payload;
     },
 
     openModalReg: (state) => {
@@ -54,8 +64,10 @@ const modalSlice = createSlice({
 
 export const {
   toggleIsOpenPopUp,
-  toggleIsOpenTimePicker,
+  toggleTimePicker,
   setSelectedItem,
+  setSelectedTimeOption,
+  setCurrentIndex,
   openModalReg,
   closeModalReg,
   openModalLogin,

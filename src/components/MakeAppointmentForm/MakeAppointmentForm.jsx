@@ -5,6 +5,7 @@ import { registration } from "../../redux/users/operations";
 import { closeModalMakeAppointment } from "../../redux/modal/slice";
 import Modal from "../Modal/Modal";
 import css from "../MakeAppointmentForm/MakeAppointmentForm.module.css";
+// import InputTimePiker from "../InputTimePiker/InputTimePiker";
 
 export default function MakeAppointmentForm({ nanny }) {
   const dispatch = useDispatch();
@@ -53,57 +54,73 @@ export default function MakeAppointmentForm({ nanny }) {
       <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={css.wrap}>
           <div className={css.blockInput}>
-            <input
-              className={css.input}
-              placeholder="Address"
-              {...register("address", { required: true, maxLength: 30 })}
-            />
-            {errors.email && (
-              <span className={css.error}>Format email is wrong</span>
-            )}
-            <input className={css.input} type="tel" placeholder="+380" />
-            {errors.email && (
-              <span className={css.error}>Format email is wrong</span>
-            )}
+            <div className={css.insideBlock}>
+              <input
+                className={css.input}
+                placeholder="Address"
+                {...register("address", { required: true, maxLength: 30 })}
+              />
+              {errors.address && (
+                <span className={css.error}>Format address is wrong</span>
+              )}
+            </div>
+
+            <div className={css.insideBlock}>
+              <input
+                className={css.input}
+                type="tel"
+                placeholder="+380"
+                {...register("tel", { required: true, maxLength: 30 })}
+              />
+              {errors.tel && (
+                <span className={css.error}>Format phone is wrong</span>
+              )}
+            </div>
           </div>
 
           <div className={css.blockInput}>
+            <div>
+              <input
+                className={css.input}
+                type="number"
+                placeholder="Child's age"
+                {...register("number", { required: true, maxLength: 2 })}
+              />
+              {errors.number && (
+                <span className={css.error}>Format number is wrong</span>
+              )}
+            </div>
+
+            {/* <InputTimePiker /> */}
+            <input className={css.input} type="time" />
+          </div>
+
+          <div>
             <input
               className={css.input}
-              type="number"
-              placeholder="Child's age"
+              {...register("email", {
+                required: true,
+                pattern: /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/,
+              })}
+              placeholder="Email"
             />
-            {errors.email && (
-              <span className={css.error}>Format email is wrong</span>
-            )}
-            <input className={css.input} type="time" />
             {errors.email && (
               <span className={css.error}>Format email is wrong</span>
             )}
           </div>
 
-          <input
-            className={css.input}
-            {...register("email", {
-              required: true,
-              pattern: /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/,
-            })}
-            placeholder="Email"
-          />
-          {errors.email && (
-            <span className={css.error}>Format email is wrong</span>
-          )}
-
-          <input
-            className={css.input}
-            {...register("name", {
-              required: true,
-            })}
-            placeholder="Father's or mother's name"
-          />
-          {errors.password && (
-            <span className={css.error}>Format email is wrong</span>
-          )}
+          <div>
+            <input
+              className={css.input}
+              {...register("name", {
+                required: true,
+              })}
+              placeholder="Father's or mother's name"
+            />
+            {errors.name && (
+              <span className={css.error}>Format name is wrong</span>
+            )}
+          </div>
 
           <textarea
             className={css.textarea}
@@ -112,7 +129,7 @@ export default function MakeAppointmentForm({ nanny }) {
             })}
             placeholder="Comment"
           />
-          {errors.password && (
+          {errors.comment && (
             <span className={css.error}>Format email is wrong</span>
           )}
         </div>

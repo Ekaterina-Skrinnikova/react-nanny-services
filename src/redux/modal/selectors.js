@@ -1,8 +1,14 @@
 export const selectIsOpenPopUp = (state) => state.modal.isOpenPopUp;
 
-export const selectIsOpenTimePicker = (state) => state.modal.IsOpenTimePicker;
+export const selectIsToggleTimePicker = (state) =>
+  state.modal.isToggleTimePicker;
 
 export const selectSelectedItem = (state) => state.modal.selectedItem;
+
+export const selectSelectedTimeOption = (state) =>
+  state.modal.selectedTimeOption;
+
+export const selectCurrentIndex = (state) => state.modal.currentIndex;
 
 export const selectIsOpenModalReg = (state) => state.modal.isOpenModalReg;
 

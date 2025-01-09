@@ -6,6 +6,7 @@ const initialState = {
   isOpenModalMakeAppointment: false,
 
   isOpenPopUp: false,
+  IsOpenTimePicker: false,
   selectedItem: "A to Z",
 };
 
@@ -15,6 +16,10 @@ const modalSlice = createSlice({
   reducers: {
     toggleIsOpenPopUp: (state) => {
       state.isOpenPopUp = !state.isOpenPopUp;
+    },
+
+    toggleIsOpenTimePicker: (state) => {
+      state.IsOpenTimePicker = !state.IsOpenTimePicker;
     },
 
     setSelectedItem: (state, action) => {
@@ -49,6 +54,7 @@ const modalSlice = createSlice({
 
 export const {
   toggleIsOpenPopUp,
+  toggleIsOpenTimePicker,
   setSelectedItem,
   openModalReg,
   closeModalReg,

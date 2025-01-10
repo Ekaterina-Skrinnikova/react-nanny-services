@@ -27,10 +27,19 @@ const nanniesSlice = createSlice({
       state.savedNanny = action.payload;
     },
 
-    addToFaivoritesListNannies: (state, action) => {
+    changeFaivoritesListNannies: (state, action) => {
+      if (!state.faivoritesListNannies) {
+        state.faivoritesListNannies = [];
+      }
+
       if (!state.faivoritesListNannies.includes(action.payload)) {
-        state.faivoritesListNannies = state.faivoritesListNannies.push(
-          action.payload
+        state.faivoritesListNannies = [
+          ...state.faivoritesListNannies,
+          action.payload,
+        ];
+      } else {
+        state.faivoritesListNannies = state.faivoritesListNannies.filter(
+          (id) => id !== action.payload
         );
       }
     },
@@ -110,6 +119,7 @@ const nanniesSlice = createSlice({
 //   }
 // );
 
-export const { expanded, setSavedNanny } = nanniesSlice.actions;
+export const { expanded, setSavedNanny, changeFaivoritesListNannies } =
+  nanniesSlice.actions;
 
 export default nanniesSlice.reducer;

@@ -4,6 +4,9 @@ export const selectNanniesAll = (state) => state.nannies.nanniesAll;
 
 export const selectSavedNanny = (state) => state.nannies.savedNanny;
 
+export const selectFaivoritesListNannies = (state) =>
+  state.nannies.faivoritesListNannies;
+
 export const selectPerPage = (state) => state.nannies.perPage;
 
 export const selectOption = (state) => state.nannies.option;

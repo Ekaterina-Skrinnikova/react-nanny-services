@@ -85,9 +85,21 @@
   column-gap: 48px;
 }
 
+.iconBtn {
+  border: transparent;
+  background-color: transparent;
+}
+
 .iconHeart {
   width: 26px;
   height: 26px;
+}
+
+.iconHeartActive {
+  width: 26px;
+  height: 26px;
+  fill: var(--base-site-color);
+  stroke: var(--base-site-color);
 }
 
 .block4 {

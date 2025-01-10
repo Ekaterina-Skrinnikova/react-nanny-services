@@ -4,8 +4,14 @@ import clsx from "clsx";
 import sprite from "../../images/sprite.svg";
 import css from "../CardNanny/CardNanny.module.css";
 import Reviews from "../Reviews/Reviews";
-import { expanded } from "../../redux/nannies/slice.js";
-import { selectIsExpanded } from "../../redux/nannies/selectors.js";
+import {
+  changeFaivoritesListNannies,
+  expanded,
+} from "../../redux/nannies/slice.js";
+import {
+  selectFaivoritesListNannies,
+  selectIsExpanded,
+} from "../../redux/nannies/selectors.js";
 import { selectIsOpenModalMakeAppointment } from "../../redux/modal/selectors.js";
 import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm.jsx";
 
@@ -13,6 +19,10 @@ export default function CardNanny({ nanny }) {
   const isOpenModalMakeAppointment = useSelector(
     selectIsOpenModalMakeAppointment
   );
+
+  const faivorites = useSelector(selectFaivoritesListNannies);
+  const isFaivorites = faivorites.includes(nanny.id);
+
   const arrayTitles = [
     "Age",
     "Kids age",
@@ -32,6 +42,11 @@ export default function CardNanny({ nanny }) {
 
   const handleReadMoreClick = () => {
     dispatch(expanded());
+  };
+
+  const handleFavoritesNanniesClick = (id) => {
+    console.log("work");
+    dispatch(changeFaivoritesListNannies(id));
   };
 
   const getAge = (birthday) => {
@@ -84,11 +99,21 @@ export default function CardNanny({ nanny }) {
                 </p>
               </div>
             </div>
-            <div>
-              <svg className={css.iconHeart}>
-                <use href={`${sprite}#icon-heart`}></use>
-              </svg>
-            </div>
+            <button
+              className={css.iconBtn}
+              type="button"
+              onClick={() => handleFavoritesNanniesClick(nanny.id)}
+            >
+              {isFaivorites ? (
+                <svg className={css.iconHeart}>
+                  <use href={`${sprite}#icon-heart-green`}></use>
+                </svg>
+              ) : (
+                <svg className={css.iconHeart}>
+                  <use href={`${sprite}#icon-heart`}></use>
+                </svg>
+              )}
+            </button>
           </div>
         </div>
 

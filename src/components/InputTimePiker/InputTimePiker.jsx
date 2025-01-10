@@ -2,7 +2,6 @@ import { clsx } from "clsx";
 import { useEffect, useRef } from "react";
 import { WiTime4 } from "react-icons/wi";
 import css from "../InputTimePiker/InputTimePiker.module.css";
-import sprite from "../../images/symbol.svg";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCurrentIndex,

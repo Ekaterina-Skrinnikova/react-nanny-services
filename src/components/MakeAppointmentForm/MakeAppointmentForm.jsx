@@ -1,26 +1,28 @@
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../Button/Button";
 import { registration } from "../../redux/users/operations";
 import { closeModalMakeAppointment } from "../../redux/modal/slice";
 import Modal from "../Modal/Modal";
 import css from "../MakeAppointmentForm/MakeAppointmentForm.module.css";
-// import InputTimePiker from "../InputTimePiker/InputTimePiker";
+import InputTimePiker from "../InputTimePiker/InputTimePiker";
+import { selectSavedNanny } from "../../redux/nannies/selectors";
 
 export default function MakeAppointmentForm({ nanny }) {
   const dispatch = useDispatch();
-
+  const savedNanny = useSelector(selectSavedNanny);
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useForm({
     valuesDefault: {
       address: "",
       phone: "",
       childAge: "",
-      date: "",
+      timeMeeting: "",
       email: "",
       fatherOrMatherName: "",
       comment: "",
@@ -28,6 +30,7 @@ export default function MakeAppointmentForm({ nanny }) {
   });
 
   const onSubmit = (data) => {
+    console.log(data);
     dispatch(registration(data));
     reset();
     dispatch(closeModalMakeAppointment());
@@ -43,11 +46,15 @@ export default function MakeAppointmentForm({ nanny }) {
       </p>
 
       <div className={css.block}>
-        <img className={css.photo} src={nanny.avatar_url} alt="nanny`s photo" />
+        <img
+          className={css.photo}
+          src={savedNanny.avatar_url}
+          alt="nanny`s photo"
+        />
 
         <div>
           <p className={css.yourNanny}>Your nanny</p>
-          <p className={css.name}>{nanny.name}</p>
+          <p className={css.name}>{savedNanny.name}</p>
         </div>
       </div>
 
@@ -90,9 +97,16 @@ export default function MakeAppointmentForm({ nanny }) {
                 <span className={css.error}>Format number is wrong</span>
               )}
             </div>
-
+            <Controller
+              name="timeMeeting"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <InputTimePiker value={field.value} onCange={field.onChange} />
+              )}
+            />
             {/* <InputTimePiker /> */}
-            <input className={css.input} type="time" />
+            {/* <input className={css.input} type="time" /> */}
           </div>
 
           <div>

@@ -15,11 +15,11 @@ import {
   selectSelectedTimeOption,
 } from "../../redux/modal/selectors";
 
-export default function InputTimePiker() {
+export default function InputTimePiker({ value, onChange }) {
   const dispatch = useDispatch();
   const isToggleTimePicker = useSelector(selectIsToggleTimePicker);
   const selectedTimeOption = useSelector(selectSelectedTimeOption);
-  const currentIndex = useSelector(selectCurrentIndex);
+  // const currentIndex = useSelector(selectCurrentIndex);
   const dropdownRef = useRef(null);
   const timeOptions = [
     "08:00",
@@ -38,19 +38,22 @@ export default function InputTimePiker() {
         dispatch(toggleTimePicker());
       }
     };
+    if (isToggleTimePicker) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
 
-    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [isToggleTimePicker, dispatch]);
 
   const handleTimePicker = () => {
     dispatch(toggleTimePicker());
   };
 
   const handleTimeOptionClick = (timeOption) => {
-    dispatch(setSelectedTimeOption(timeOption));
+    // dispatch(setSelectedTimeOption(timeOption));
+    onChange(timeOption);
     dispatch(toggleTimePicker());
   };
 
@@ -69,7 +72,7 @@ export default function InputTimePiker() {
         className={css.timeInput}
         placeholder="00:00"
         readOnly
-        value={selectedTimeOption}
+        value={value}
       />
       <button className={css.timeIcon} onClick={handleTimePicker}>
         <WiTime4 size={20} />
@@ -85,7 +88,7 @@ export default function InputTimePiker() {
                 return (
                   <li
                     className={clsx(css.timeOption, {
-                      [css.timeOptionActive]: selectedTimeOption === timeOption,
+                      [css.timeOptionActive]: value === timeOption,
                     })}
                     key={i}
                     onClick={() => handleTimeOptionClick(timeOption)}
@@ -95,33 +98,6 @@ export default function InputTimePiker() {
                 );
               })}
           </ul>
-
-          {/* <ul className={css.timeOptions}>
-            <li className={css.timeOption} data-time="08:00">
-              <span>08</span> : <span>00</span>
-            </li>
-            <li className={css.timeOption} data-time="08:30">
-              <span>08</span> : <span>30</span>
-            </li>
-            <li className={css.timeOption} data-time="09:00">
-              <span>09</span> : <span>00</span>
-            </li>
-            <li className={css.timeOption} data-time="09:30">
-              <span>09</span> : <span>30</span>
-            </li>
-            <li className={css.timeOption} data-time="10:00">
-              <span>10</span> : <span>00</span>
-            </li>
-            <li className={css.timeOption} data-time="10:30">
-              <span>10</span> : <span>30</span>
-            </li>
-            <li className={css.timeOption} data-time="11:00">
-              <span>11</span> : <span>00</span>
-            </li>
-            <li className={css.timeOption} data-time="11:30">
-              <span>11</span> : <span>30</span>
-            </li>
-          </ul> */}
         </div>
       )}
     </div>

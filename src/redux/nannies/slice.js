@@ -4,6 +4,9 @@ import { getAllNannies, getFirstPage, getNextPage } from "./operations";
 const initialState = {
   nanniesAll: [],
   nannies: [],
+  savedNanny: null,
+
+  faivoritesListNannies: [],
 
   perPage: 3,
   lastVisibleKey: null,
@@ -18,6 +21,18 @@ const nanniesSlice = createSlice({
   reducers: {
     expanded: (state) => {
       state.isExpanded = !state.isExpanded;
+    },
+
+    setSavedNanny: (state, action) => {
+      state.savedNanny = action.payload;
+    },
+
+    addToFaivoritesListNannies: (state, action) => {
+      if (!state.faivoritesListNannies.includes(action.payload)) {
+        state.faivoritesListNannies = state.faivoritesListNannies.push(
+          action.payload
+        );
+      }
     },
   },
 
@@ -95,6 +110,6 @@ const nanniesSlice = createSlice({
 //   }
 // );
 
-export const { expanded } = nanniesSlice.actions;
+export const { expanded, setSavedNanny } = nanniesSlice.actions;
 
 export default nanniesSlice.reducer;

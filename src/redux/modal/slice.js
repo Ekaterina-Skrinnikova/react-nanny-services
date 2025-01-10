@@ -57,6 +57,7 @@ const modalSlice = createSlice({
     },
 
     closeModalMakeAppointment: (state) => {
+      state.savedNanny = null;
       state.isOpenModalMakeAppointment = false;
     },
   },

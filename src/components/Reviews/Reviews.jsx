@@ -4,12 +4,14 @@ import css from "../Reviews/Reviews.module.css";
 import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
 import { openModalMakeAppointment } from "../../redux/modal/slice";
+import { setSavedNanny } from "../../redux/nannies/slice";
 
 export default function Reviews({ nanny }) {
   const dispatch = useDispatch();
   const responses = nanny.reviews;
 
-  const handleOpenModalMakeAppointment = () => {
+  const handleOpenModalMakeAppointment = (nanny) => {
+    dispatch(setSavedNanny(nanny));
     dispatch(openModalMakeAppointment());
   };
 
@@ -41,7 +43,7 @@ export default function Reviews({ nanny }) {
       <Button
         type="submit"
         className={css.btn}
-        onClick={handleOpenModalMakeAppointment}
+        onClick={() => handleOpenModalMakeAppointment(nanny)}
       >
         Make an appointment
       </Button>

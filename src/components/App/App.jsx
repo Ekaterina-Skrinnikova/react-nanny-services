@@ -4,7 +4,6 @@ import "../App/App";
 import Layout from "../Layout/Layout";
 import RestrictedRoute from "../RestrictedRoute";
 import PrivateRoute from "../PrivateRoute";
-// import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm";
 
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const NanniesPage = lazy(() => import("../../pages/NanniesPage/NanniesPage"));
@@ -29,8 +28,13 @@ export default function App() {
               <PrivateRoute component={<NanniesPage />} redirectTo="/" />
             }
           />
-          <Route path="/favorites" element={<FavoritesPage />} /> //??
-          {/* <Route path="/modal" element={<MakeAppointmentForm />} /> */}
+          <Route
+            path="/favorites"
+            element={
+              <PrivateRoute component={<FavoritesPage />} redirectTo="/" />
+            }
+          />
+
           <Route path="*" element={<HomePage />} />
         </Routes>
       </Suspense>

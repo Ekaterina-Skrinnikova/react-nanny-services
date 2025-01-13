@@ -4,9 +4,24 @@
   column-gap: 14px;
 }
 
+.fileInput {
+  display: none;
+}
+
+.uploadLabel {
+  cursor: pointer;
+}
+
 .iconPerson {
   width: 40px;
   height: 40px;
+}
+
+.imgPerson {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
 .button {

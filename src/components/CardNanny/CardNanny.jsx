@@ -22,6 +22,8 @@ export default function CardNanny({ nanny }) {
 
   const faivorites = useSelector(selectFaivoritesListNannies);
   const isFaivorites = faivorites.includes(nanny.id);
+  // console.log(nanny.id);
+  // console.log(faivorites);
 
   const arrayTitles = [
     "Age",
@@ -66,6 +68,11 @@ export default function CardNanny({ nanny }) {
 
     return age;
   };
+
+  if (!nanny || !nanny.id) {
+    console.error("error", nanny);
+    return null;
+  }
 
   return (
     <div className={clsx(css.wrapper, css.flex)}>

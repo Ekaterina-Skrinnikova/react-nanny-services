@@ -4,13 +4,17 @@ import { getAllNannies, getFirstPage, getNextPage } from "./operations";
 const initialState = {
   nanniesAll: [],
   nannies: [],
-  savedNanny: null,
 
   faivoritesListNannies: [],
+
+  savedNanny: null,
+
+  image: null,
 
   perPage: 3,
   lastVisibleKey: null,
   isExpanded: false,
+
   isLoading: false,
   error: null,
 };
@@ -25,6 +29,10 @@ const nanniesSlice = createSlice({
 
     setSavedNanny: (state, action) => {
       state.savedNanny = action.payload;
+    },
+
+    setImage: (state, action) => {
+      state.image = action.payload;
     },
 
     changeFaivoritesListNannies: (state, action) => {
@@ -119,7 +127,11 @@ const nanniesSlice = createSlice({
 //   }
 // );
 
-export const { expanded, setSavedNanny, changeFaivoritesListNannies } =
-  nanniesSlice.actions;
+export const {
+  expanded,
+  setSavedNanny,
+  setImage,
+  changeFaivoritesListNannies,
+} = nanniesSlice.actions;
 
 export default nanniesSlice.reducer;

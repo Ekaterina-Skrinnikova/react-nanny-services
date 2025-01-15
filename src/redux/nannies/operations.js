@@ -56,7 +56,7 @@ export const getFirstPage = createAsyncThunk(
   "nannies/getFirstPage",
   async ({ perPage, option }, thunkAPI) => {
     try {
-      console.log(option);
+      // console.log(option);
       let firstPageQuery;
 
       switch (option) {

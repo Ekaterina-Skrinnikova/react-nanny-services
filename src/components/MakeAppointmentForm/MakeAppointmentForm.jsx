@@ -18,7 +18,7 @@ export default function MakeAppointmentForm({ nanny }) {
     reset,
     control,
   } = useForm({
-    valuesDefault: {
+    defaultValues: {
       address: "",
       phone: "",
       childAge: "",
@@ -29,11 +29,26 @@ export default function MakeAppointmentForm({ nanny }) {
     },
   });
 
+  const timeOptions = [
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+  ];
+
   const onSubmit = (data) => {
     console.log(data);
     dispatch(registration(data));
     reset();
     dispatch(closeModalMakeAppointment());
+  };
+
+  const getValue = (value) => {
+    return value ? timeOptions.find((option) => option === value) : "";
   };
 
   return (
@@ -77,7 +92,7 @@ export default function MakeAppointmentForm({ nanny }) {
                 className={css.input}
                 type="tel"
                 placeholder="+380"
-                {...register("tel", { required: true, maxLength: 30 })}
+                {...register("phone", { required: true, maxLength: 30 })}
               />
               {errors.tel && (
                 <span className={css.error}>Format phone is wrong</span>
@@ -91,7 +106,7 @@ export default function MakeAppointmentForm({ nanny }) {
                 className={css.input}
                 type="number"
                 placeholder="Child's age"
-                {...register("number", { required: true, maxLength: 2 })}
+                {...register("childAge", { required: true, maxLength: 2 })}
               />
               {errors.number && (
                 <span className={css.error}>Format number is wrong</span>
@@ -100,13 +115,18 @@ export default function MakeAppointmentForm({ nanny }) {
             <Controller
               name="timeMeeting"
               control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <InputTimePiker value={field.value} onCange={field.onChange} />
+              defaultValue="09:00"
+              render={({
+                field: { value, onChange },
+                fieldState: { errors },
+              }) => (
+                <InputTimePiker
+                  options={timeOptions}
+                  value={getValue(value)}
+                  onChange={(newValue) => onChange(newValue)}
+                />
               )}
             />
-            {/* <InputTimePiker /> */}
-            {/* <input className={css.input} type="time" /> */}
           </div>
 
           <div>

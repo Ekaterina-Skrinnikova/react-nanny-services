@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { login, logout, registration } from "./operations";
 
 const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem("user")),
+  accessToken: null,
 
   isLoggedIn: false,
   isLoading: false,
@@ -21,6 +22,7 @@ const authSlice = createSlice({
       })
       .addCase(registration.fulfilled, (state, action) => {
         state.user = action.payload;
+        state.accessToken = action.payload.idToken;
         state.isLoading = false;
         state.isLoggedIn = true;
       })

@@ -7,6 +7,8 @@ import {
   signOut,
 } from "firebase/auth/cordova";
 
+import { onAuthStateChanged } from "firebase/auth";
+
 export const registration = createAsyncThunk(
   "auth/registration",
   async ({ name, email, password }, thunkAPI) => {
@@ -16,12 +18,14 @@ export const registration = createAsyncThunk(
         email,
         password
       );
+
       const user = userCredential.user;
 
       await updateProfile(user, { displayName: name });
 
       return {
         uid: user.uid,
+        accessToken: user.accessToken,
         name: user.displayName,
         email: user.email,
       };
@@ -46,6 +50,7 @@ export const login = createAsyncThunk(
 
       return {
         uid: user.uid,
+        accessToken: user.accessToken,
         name: user.displayName,
         email: user.email,
       };
@@ -63,5 +68,15 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   } catch (error) {
     console.log("err:", error);
     return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("user", user);
+    localStorage.setItem("user", JSON.stringify(user));
+  } else {
+    console.log("User is signed out");
+    localStorage.removeItem("user");
   }
 });

@@ -7,14 +7,13 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBKFIhljgBwm2pm7M71DlpbrewWKP1qX10",
-  authDomain: "react-nanny-services.firebaseapp.com",
-  databaseURL:
-    "https://react-nanny-services-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "react-nanny-services",
-  storageBucket: "react-nanny-services.firebasestorage.app",
-  messagingSenderId: "876283851141",
-  appId: "1:876283851141:web:7a3c0765a30bfe14db14ec",
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_DATABASE_URL,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 // Initialize Firebase

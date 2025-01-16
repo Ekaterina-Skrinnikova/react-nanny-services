@@ -3,31 +3,55 @@ import sprite from "../../images/sprite.svg";
 import Button from "../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/users/operations";
-import { selectUserName } from "../../redux/users/selectors";
+import { selectUser } from "../../redux/users/selectors";
 import { selectImage } from "../../redux/nannies/selectors";
 import { setImage } from "../../redux/nannies/slice";
+
+// import { auth, storage } from "../../firebase/firebaseConfig";
+// import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
+// import { updateProfile } from "firebase/auth";
 
 export default function UserMenu() {
   const dispatch = useDispatch();
 
-  const userName = useSelector(selectUserName);
+  const user = useSelector(selectUser);
   const image = useSelector(selectImage);
-  // console.log(userName);
 
   const handleLogout = () => {
     dispatch(logout());
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    // console.log(e.target);
-    // console.log(file);
+
+    // if (file) {
+    //   try {
+    //     const userId = auth.currentUser.uid;
+
+    //     // завантажити фото
+    //     // створити сховище
+    //     const photoRef = ref(storage, `user_photo/${userId}`);
+    //     // console.log(photoRef);
+    //     // завантажити фото
+    //     const snapshot = await uploadBytes(photoRef, file);
+    //     // отримати url фото
+
+    //     console.log(snapshot);
+    //     const photoURL = await getDownloadURL(snapshot.ref);
+
+    //     // оновити профіль користувача
+    //     await updateProfile(auth.currentUser, { photoURL });
+    //     console.log("Photo uploaded and profile updated successfully!", auth);
+    //   } catch (error) {
+    //     console.error("Error handling photo upload:", error);
+    //   }
+    // }
 
     if (file) {
       const reader = new FileReader();
-      // console.log(reader);
+      console.log("reader", reader);
+
       reader.onload = () => {
-        // console.log(reader.result);
         dispatch(setImage(reader.result));
       };
       reader.readAsDataURL(file);
@@ -54,7 +78,7 @@ export default function UserMenu() {
           className={css.fileInput}
         />
 
-        <p>{userName}</p>
+        <p>{user.name}</p>
       </div>
       <Button onClick={handleLogout} className={css.button} type="button">
         Log out

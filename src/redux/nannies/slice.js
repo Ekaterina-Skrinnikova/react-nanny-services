@@ -5,7 +5,7 @@ const initialState = {
   nanniesAll: [],
   nannies: [],
 
-  faivoritesListNannies: [],
+  faivoritesListNannies: JSON.parse(localStorage.getItem("faivorites")) || [],
 
   savedNanny: null,
 

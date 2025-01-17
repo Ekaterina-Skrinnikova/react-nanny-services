@@ -1,11 +1,12 @@
+import clsx from "clsx";
 import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
 import AuthNav from "../AuthNav/AuthNav";
 import css from "../AuthHeader/AuthHeader.module.css";
 
-export default function AuthHeader() {
+export default function AuthHeader({ className }) {
   return (
-    <header className={css.container}>
+    <header className={clsx(css.container, className)}>
       <div className={css.wrapper}>
         <div className={css.box}>
           <Logo />

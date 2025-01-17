@@ -14,6 +14,7 @@ import {
 } from "../../redux/nannies/selectors.js";
 import { selectIsOpenModalMakeAppointment } from "../../redux/modal/selectors.js";
 import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm.jsx";
+import { selectIsLoggedIn } from "../../redux/users/selectors.js";
 
 export default function CardNanny({ nanny }) {
   const isOpenModalMakeAppointment = useSelector(
@@ -22,6 +23,7 @@ export default function CardNanny({ nanny }) {
 
   const faivorites = useSelector(selectFaivoritesListNannies);
   const isFaivorites = faivorites.includes(nanny.id);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   // console.log(nanny.id);
   // console.log(faivorites);
 
@@ -48,7 +50,9 @@ export default function CardNanny({ nanny }) {
 
   const handleFavoritesNanniesClick = (id) => {
     console.log("work");
-    dispatch(changeFaivoritesListNannies(id));
+    if (isLoggedIn) {
+      dispatch(changeFaivoritesListNannies(id));
+    }
   };
 
   const getAge = (birthday) => {
@@ -162,7 +166,9 @@ export default function CardNanny({ nanny }) {
           Read more
         </button>
       </div>
-      {isOpenModalMakeAppointment && <MakeAppointmentForm nanny={nanny} />}
+      {isLoggedIn && isOpenModalMakeAppointment && (
+        <MakeAppointmentForm nanny={nanny} />
+      )}
     </div>
   );
 }

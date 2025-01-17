@@ -4,14 +4,21 @@ import ListCardNannies from "../../components/ListCardNannies/ListCardNannies";
 import { getAllNannies, getFirstPage } from "../../redux/nannies/operations.js";
 import { useEffect } from "react";
 import { selectPerPage } from "../../redux/nannies/selectors.js";
-import { selectSelectedItem } from "../../redux/modal/selectors.js";
+import {
+  selectIsOpenModalLogin,
+  selectIsOpenModalReg,
+  selectSelectedItem,
+} from "../../redux/modal/selectors.js";
 import css from "../NanniesPage/NanniesPage.module.css";
+import LogInForm from "../../components/LogInForm/LogInForm.jsx";
+import RegisterForm from "../../components/RegistrationForm/RegistrationForm.jsx";
 // import { selectIsLoggedIn } from "../../redux/users/selectors.js";
 
 export default function Nannies() {
   const dispatch = useDispatch();
 
-  // const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isOpenModalReg = useSelector(selectIsOpenModalReg);
+  const isOpenModalLogin = useSelector(selectIsOpenModalLogin);
   const perPage = useSelector(selectPerPage);
   const option = useSelector(selectSelectedItem);
   // console.log(perPage);
@@ -30,6 +37,9 @@ export default function Nannies() {
           <ListCardNannies />
         </div>
       </div>
+
+      {isOpenModalLogin && <LogInForm />}
+      {isOpenModalReg && <RegisterForm />}
     </>
   );
 }

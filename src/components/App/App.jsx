@@ -22,12 +22,7 @@ export default function App() {
               <RestrictedRoute component={<HomePage />} redirectTo="/nannies" />
             }
           />
-          <Route
-            path="/nannies"
-            element={
-              <PrivateRoute component={<NanniesPage />} redirectTo="/" />
-            }
-          />
+          <Route path="/nannies" element={<NanniesPage />} />
           <Route
             path="/favorites"
             element={

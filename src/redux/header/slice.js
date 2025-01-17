@@ -8,12 +8,12 @@ const headerSlice = createSlice({
   name: "header",
   initialState,
   reducers: {
-    setHeaderType: (state, action) => {
+    setTypeHeader: (state, action) => {
       state.typeHeader = action.payload;
     },
   },
 });
 
-export const { setHeaderType } = headerSlice.actions;
+export const { setTypeHeader } = headerSlice.actions;
 
 export default headerSlice.reducer;

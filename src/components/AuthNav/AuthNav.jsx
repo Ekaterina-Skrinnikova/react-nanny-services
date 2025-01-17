@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
 import { openModalLogin, openModalReg } from "../../redux/modal/slice";
 
-export default function AuthNav() {
+export default function AuthNav({ classBtn }) {
   const dispatch = useDispatch();
 
   const handleOpenModalReg = () => {
@@ -25,7 +25,7 @@ export default function AuthNav() {
 
       <Button
         onClick={handleOpenModalReg}
-        className={clsx(css.button, css.btnReg)}
+        className={clsx(css.button, css.btnReg, classBtn)}
       >
         Registration
       </Button>

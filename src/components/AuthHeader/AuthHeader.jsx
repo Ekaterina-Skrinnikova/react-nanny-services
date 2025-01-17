@@ -4,7 +4,7 @@ import Navigation from "../Navigation/Navigation";
 import AuthNav from "../AuthNav/AuthNav";
 import css from "../AuthHeader/AuthHeader.module.css";
 
-export default function AuthHeader({ className }) {
+export default function AuthHeader({ className, classBtn }) {
   return (
     <header className={clsx(css.container, className)}>
       <div className={css.wrapper}>
@@ -15,7 +15,7 @@ export default function AuthHeader({ className }) {
           <Navigation />
         </div>
         <div className={css.box}>
-          <AuthNav />
+          <AuthNav classBtn={classBtn} />
         </div>
       </div>
     </header>

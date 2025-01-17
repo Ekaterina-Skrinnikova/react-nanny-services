@@ -1,3 +1,8 @@
 .bgColor {
   background-color: var(--base-site-color);
 }
+
+.btnRegNannies {
+  background-color: var(--bg-card-color);
+  color: var(--base-site-color);
+}

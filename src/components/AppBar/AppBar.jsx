@@ -34,7 +34,9 @@ export default function AppBar() {
         return <AuthHeader />;
 
       case "nannies":
-        return <AuthHeader className={css.bgColor} />;
+        return (
+          <AuthHeader className={css.bgColor} classBtn={css.btnRegNannies} />
+        );
     }
   };
 

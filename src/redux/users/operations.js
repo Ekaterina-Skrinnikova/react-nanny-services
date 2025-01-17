@@ -13,13 +13,9 @@ export const registration = createAsyncThunk(
   "auth/registration",
   async ({ name, email, password }, thunkAPI) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      await createUserWithEmailAndPassword(auth, email, password);
 
-      const user = userCredential.user;
+      const user = auth.currentUser;
 
       await updateProfile(user, { displayName: name });
 
@@ -40,13 +36,9 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }, thunkAPI) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      await signInWithEmailAndPassword(auth, email, password);
 
-      const user = userCredential.user;
+      const user = auth.currentUser;
 
       return {
         uid: user.uid,
@@ -64,19 +56,20 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
     await signOut(auth);
-    console.log("logout");
+    localStorage.clear();
+    // console.log("logout");
   } catch (error) {
     console.log("err:", error);
     return thunkAPI.rejectWithValue(error.message);
   }
 });
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("user", user);
-    localStorage.setItem("user", JSON.stringify(user));
-  } else {
-    console.log("User is signed out");
-    localStorage.removeItem("user");
-  }
-});
+// onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//     // console.log("user", user);
+//     // localStorage.setItem("user", JSON.stringify(user));
+//   } else {
+//     console.log("User is signed out");
+//     localStorage.clear();
+//   }
+// });

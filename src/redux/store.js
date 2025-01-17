@@ -13,37 +13,39 @@ import storage from "redux-persist/lib/storage";
 import nanniesReducer from "../redux/nannies/slice";
 import modalReducer from "../redux/modal/slice";
 import authReducer from "../redux/users/slice";
-import supportReducer from "../redux/support/slice";
+import headerReducer from "../redux/header/slice";
 
-// save state to localStorage
-const saveToLocalStorage = (state) => {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem("stateData", serializedState);
-  } catch (error) {
-    console.error("State isn`t save:", error);
-  }
+const authPersistConfig = {
+  key: "auth",
+  storage,
+  whitelist: ["user", "isLoggedIn"],
 };
 
-// load state from localStorage
-const loadFromLocalStorage = () => {
-  try {
-    const serializedState = localStorage.getItem("stateData");
-    if (!serializedState) return undefined;
-    return JSON.parse(serializedState);
-  } catch (error) {
-    console.error("State is not load:", error);
-  }
+const nanniesPersistConfig = {
+  key: "nannies",
+  storage,
+  whitelist: ["faivoritesListNannies", "image"],
 };
-// for load state
-const preloadedState = loadFromLocalStorage();
+
+const modalPersistConfig = {
+  key: "modal",
+  storage,
+  whitelist: ["selectedItem"],
+};
+
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+const persistedNanniesReducer = persistReducer(
+  nanniesPersistConfig,
+  nanniesReducer
+);
+const persistedModalReducer = persistReducer(modalPersistConfig, modalReducer);
 
 export const store = configureStore({
   reducer: {
-    nannies: nanniesReducer,
-    modal: modalReducer,
-    auth: authReducer,
-    support: supportReducer,
+    nannies: persistedNanniesReducer,
+    modal: persistedModalReducer,
+    auth: persistedAuthReducer,
+    header: headerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

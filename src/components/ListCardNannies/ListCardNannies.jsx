@@ -9,8 +9,8 @@ import {
 import CardNanny from "../CardNanny/CardNanny";
 import css from "../ListCardNannies/ListCardNannies.module.css";
 import Button from "../Button/Button.jsx";
-import { getNextPage } from "../../redux/nannies/operations.js";
 import { selectSelectedItem } from "../../redux/modal/selectors.js";
+import { buildQuery } from "../../redux/nannies/operations.js";
 
 export default function ListCardNannies() {
   const dispatch = useDispatch();
@@ -20,12 +20,13 @@ export default function ListCardNannies() {
   const lastVisibleKey = useSelector(selectLastVisibleKey);
   const option = useSelector(selectSelectedItem);
 
-  // console.log(nannies);
+  // console.log("lastVisibleKey=list", lastVisibleKey);
   // console.log(nanniesAll);
   // console.log(option);
 
   const handleLoadMoreClick = () => {
-    dispatch(getNextPage({ lastVisibleKey, perPage, option }));
+    // console.log("statr");
+    dispatch(buildQuery({ lastVisibleKey, perPage, option }));
   };
 
   const isLoadAll = nannies.length === nanniesAll.length;

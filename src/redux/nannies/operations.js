@@ -5,30 +5,31 @@ import {
   get,
   update,
   query,
-  orderByKey,
   limitToFirst,
   orderByChild,
   endAt,
   startAfter,
   startAt,
   endBefore,
+  orderByKey,
 } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 
 const dbRef = ref(db, "/nannies");
-// console.log(dbRef);
 
 export const getAllNannies = createAsyncThunk(
   "nannies/getAllNannies",
   async (_, thunkAPI) => {
     try {
-      const DataSnapshot = await get(dbRef);
+      const dataSnapshot = await get(dbRef);
 
-      if (DataSnapshot.exists()) {
-        const data = DataSnapshot.val();
+      // console.log("dataSnapshot", dataSnapshot);
 
-        // const updateRef = ref(db, "nannies/27");
-        // update(updateRef, { rating: 3 });
+      if (dataSnapshot.exists()) {
+        const data = dataSnapshot.val();
+
+        // console.log("data", data);
+
         Object.keys(data).forEach((key) => {
           if (!data[key].id && !data[key].name_lowercase) {
             const uniqueId = uuidv4();
@@ -52,266 +53,254 @@ export const getAllNannies = createAsyncThunk(
   }
 );
 
-export const getFirstPage = createAsyncThunk(
-  "nannies/getFirstPage",
-  async ({ perPage, option }, thunkAPI) => {
-    try {
-      // console.log(option);
-      let firstPageQuery;
+// export const getFirstPage = createAsyncThunk(
+//   "nannies/getFirstPage",
+//   async ({ perPage, option }, thunkAPI) => {
+//     try {
+//       let firstPageQuery;
 
-      switch (option) {
-        case "A to Z": {
-          firstPageQuery = query(
-            dbRef,
-            orderByChild("name_lowercase"),
-            limitToFirst(perPage)
-          );
+//       switch (option) {
+//         case "A to Z": {
+//           firstPageQuery = query(
+//             dbRef,
+//             orderByChild("name_lowercase"),
+//             limitToFirst(perPage)
+//           );
 
-          // console.log(firstPageQuery);
+//           console.log(firstPageQuery);
 
-          break;
-        }
+//           break;
+//         }
 
-        case "Z to A": {
-          firstPageQuery = query(
-            dbRef,
-            orderByChild("name_lowercase"),
-            limitToFirst(perPage)
-          );
-          // console.log(firstPageQuery);
-          break;
-        }
+//         case "Z to A": {
+//           firstPageQuery = query(
+//             dbRef,
+//             orderByChild("name_lowercase"),
+//             limitToFirst(perPage)
+//           );
+//           // console.log(firstPageQuery);
+//           break;
+//         }
 
-        case "Less than 10$": {
-          firstPageQuery = query(
-            dbRef,
-            orderByChild("price_per_hour"),
-            endAt(10),
-            limitToFirst(perPage)
-          );
-          // console.log(firstPageQuery);
+//         case "Less than 10$": {
+//           firstPageQuery = query(
+//             dbRef,
+//             orderByChild("price_per_hour"),
+//             endAt(10),
+//             limitToFirst(perPage)
+//           );
+//           // console.log(firstPageQuery);
 
-          break;
-        }
+//           break;
+//         }
 
-        case "Greater than 10$": {
-          firstPageQuery = query(
-            dbRef,
-            orderByChild("price_per_hour"),
-            startAfter(10),
-            limitToFirst(perPage)
-          );
-          // console.log(firstPageQuery);
-          break;
-        }
+//         case "Greater than 10$": {
+//           firstPageQuery = query(
+//             dbRef,
+//             orderByChild("price_per_hour"),
+//             startAfter(10),
+//             limitToFirst(perPage)
+//           );
+//           // console.log(firstPageQuery);
+//           break;
+//         }
 
-        case "Popular": {
-          firstPageQuery = query(
-            dbRef,
-            orderByChild("rating"),
-            startAt(4),
-            limitToFirst(perPage)
-          );
-          // console.log(firstPageQuery);
-          break;
-        }
+//         case "Popular": {
+//           firstPageQuery = query(
+//             dbRef,
+//             orderByChild("rating"),
+//             startAt(4),
+//             limitToFirst(perPage)
+//           );
+//           // console.log(firstPageQuery);
+//           break;
+//         }
 
-        case "Not popular": {
-          firstPageQuery = query(
-            dbRef,
-            orderByChild("rating"),
-            endBefore(4),
-            limitToFirst(perPage)
-          );
-          // console.log(firstPageQuery);
-          break;
-        }
+//         case "Not popular": {
+//           firstPageQuery = query(
+//             dbRef,
+//             orderByChild("rating"),
+//             endBefore(4),
+//             limitToFirst(perPage)
+//           );
+//           // console.log(firstPageQuery);
+//           break;
+//         }
 
-        case "Show all": {
-          firstPageQuery = query(dbRef, orderByChild("name_lowercase"));
+//         case "Show all": {
+//           firstPageQuery = query(dbRef, orderByChild("name_lowercase"));
 
-          break;
-        }
+//           break;
+//         }
 
-        default: {
-          firstPageQuery = query(
-            dbRef,
-            orderByChild("name_lowercase"),
-            limitToFirst(perPage)
-          );
+//         default: {
+//           firstPageQuery = query(
+//             dbRef,
+//             orderByChild("name_lowercase"),
+//             limitToFirst(perPage)
+//           );
 
-          break;
-        }
-      }
+//           break;
+//         }
+//       }
 
-      const snapshot = await get(firstPageQuery);
-      // console.log(snapshot);
-      if (snapshot.exists()) {
-        const items = snapshot.val();
+//       const snapshot = await get(firstPageQuery);
+//       // console.log("snapshot", snapshot);
+//       if (snapshot.exists()) {
+//         const items = snapshot.val();
 
-        if (!Array.isArray(items)) {
-          const itemsKey = Object.keys(items);
+//         console.log("items", items);
 
-          return {
-            items: Object.values(items),
-            lastKey: itemsKey[itemsKey.length - 1] || null,
-          };
-        }
-        console.log(items);
+//         if (!Array.isArray(items)) {
+//           const itemsKey = Object.keys(items);
 
-        if (option === "Z to A") {
-          const itemsReverse = Object.values(items).reverse();
-          const itemsKey = Object.keys(itemsReverse);
-          console.log(itemsReverse);
-          return {
-            items: itemsReverse,
-            lastKey: itemsKey[itemsKey.length - 1],
-          };
-        }
-        const itemsKey = Object.keys(items);
-        // console.log(items);
-        return { items, lastKey: itemsKey[itemsKey.length - 1] || null };
-      }
+//           console.log("itemsKey", itemsKey);
+//           console.log("lastKey", itemsKey[itemsKey.length - 1]);
 
-      // console.log(items);
+//           return {
+//             items: Object.values(items),
+//             lastKey: itemsKey[itemsKey.length - 1] || null,
+//           };
+//         }
+//         console.log(items);
 
-      return { items: {}, lastKey: null };
-    } catch (error) {
-      console.log(error);
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+//         if (option === "Z to A") {
+//           const itemsReverse = Object.values(items).reverse();
+//           const itemsKey = Object.keys(itemsReverse);
+//           console.log(itemsReverse);
+//           return {
+//             items: itemsReverse,
+//             lastKey: itemsKey[itemsKey.length - 1],
+//           };
+//         }
+//         const itemsKey = Object.keys(items);
+//         // console.log(items);
+//         return { items, lastKey: itemsKey[itemsKey.length - 1] || null };
+//       }
 
-export const getNextPage = createAsyncThunk(
-  "nannies/getNextPage",
-  async ({ lastVisibleKey, perPage, option }, thunkAPI) => {
+//       // console.log(items);
+
+//       return { items: {}, lastKey: null };
+//     } catch (error) {
+//       console.log(error);
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
+
+export const buildQuery = createAsyncThunk(
+  "nannies/buildQuery",
+  async ({ lastVisibleKey = null, perPage, option }, thunkAPI) => {
     try {
       console.log(option);
       console.log(lastVisibleKey);
-      let nextPageQuery;
+      console.log(perPage);
+      let pageQuery;
 
       switch (option) {
         case "A to Z": {
-          nextPageQuery = query(
+          pageQuery = query(
             dbRef,
             orderByChild("name_lowercase"),
-            startAt(lastVisibleKey),
-            limitToFirst(perPage + 1)
+            ...[...(lastVisibleKey ? [startAfter(lastVisibleKey)] : [])],
+            limitToFirst(perPage)
           );
-
-          // console.log(firstPageQuery);
-
+          console.log("pageQuery", pageQuery);
           break;
         }
 
-        case "Z to A": {
-          nextPageQuery = query(
-            dbRef,
-            orderByChild("name_lowercase"),
-            startAt(lastVisibleKey),
-            limitToFirst(perPage + 1)
-          );
-          // console.log(firstPageQuery);
-          break;
-        }
+        // case "Z to A": {
+        //   pageQuery = query(
+        //     dbRef,
+        //     orderByChild("name_lowercase"),
+        //     lastVisibleKey ? startAfter(lastVisibleKey) : undefined,
+        //     limitToFirst(perPage + 1)
+        //   );
 
-        case "Less than 10$": {
-          nextPageQuery = query(
-            dbRef,
-            orderByChild("price_per_hour"),
-            endAt(10),
-            startAt(lastVisibleKey),
-            limitToFirst(perPage + 1)
-          );
-          // console.log(firstPageQuery);
+        //   break;
+        // }
 
-          break;
-        }
+        // case "Less than 10$": {
+        //   pageQuery = query(
+        //     dbRef,
+        //     orderByChild("price_per_hour"),
+        //     endAt(10),
+        //     lastVisibleKey ? startAfter(lastVisibleKey) : undefined,
+        //     limitToFirst(perPage + 1)
+        //   );
 
-        case "Greater than 10$": {
-          nextPageQuery = query(
-            dbRef,
-            orderByChild("price_per_hour"),
-            startAfter(10),
-            startAt(lastVisibleKey),
-            limitToFirst(perPage + 1)
-          );
-          // console.log(firstPageQuery);
-          break;
-        }
+        //   break;
+        // }
 
-        case "Popular": {
-          nextPageQuery = query(
-            dbRef,
-            orderByChild("rating"),
-            startAt(10),
-            startAt(lastVisibleKey),
-            limitToFirst(perPage + 1)
-          );
-          // console.log(firstPageQuery);
-          break;
-        }
+        // case "Greater than 10$": {
+        //   pageQuery = query(
+        //     dbRef,
+        //     orderByChild("price_per_hour"),
+        //     startAfter(10),
+        //     lastVisibleKey ? startAfter(lastVisibleKey) : undefined,
+        //     limitToFirst(perPage + 1)
+        //   );
 
-        case "Not popular": {
-          nextPageQuery = query(
-            dbRef,
-            orderByChild("rating"),
-            endBefore(10),
-            startAt(lastVisibleKey),
-            limitToFirst(perPage + 1)
-          );
-          // console.log(firstPageQuery);
-          break;
-        }
+        //   break;
+        // }
 
-        case "Show all": {
-          firstPageQuery = query(dbRef, orderByChild("name_lowercase"));
+        // case "Popular": {
+        //   pageQuery = query(
+        //     dbRef,
+        //     orderByChild("rating"),
+        //     startAt(10),
+        //     lastVisibleKey ? startAfter(lastVisibleKey) : undefined,
+        //     limitToFirst(perPage + 1)
+        //   );
 
-          break;
-        }
+        //   break;
+        // }
 
-        default: {
-          nextPageQuery = query(
-            dbRef,
-            orderByChild("name_lowercase"),
-            startAt(lastVisibleKey),
-            limitToFirst(perPage + 1)
-          );
+        // case "Not popular": {
+        //   pageQuery = query(
+        //     dbRef,
+        //     orderByChild("rating"),
+        //     endBefore(10),
+        //     lastVisibleKey ? startAfter(lastVisibleKey) : undefined,
+        //     limitToFirst(perPage + 1)
+        //   );
 
-          break;
-        }
+        //   break;
+        // }
+
+        // case "Show all": {
+        //   pageQuery = query(dbRef, orderByChild("name_lowercase"));
+
+        //   break;
+        // }
+
+        // default: {
+        //   pageQuery = query(
+        //     dbRef,
+        //     orderByChild("name_lowercase"),
+        //     lastVisibleKey ? startAfter(lastVisibleKey) : undefined,
+        //     limitToFirst(perPage + 1)
+        //   );
+
+        //   break;
+        // }
       }
 
-      const snapshot = await get(nextPageQuery);
-      if (snapshot.exists()) {
+      const snapshot = await get(pageQuery);
+      if (
+        snapshot.exists() &&
+        snapshot.val() &&
+        typeof snapshot.val() === "object"
+      ) {
         const items = snapshot.val();
-
-        if (!Array.isArray(items)) {
-          const itemsKey = Object.keys(items);
-
-          return {
-            items: Object.values(items),
-            lastKey: itemsKey[itemsKey.length - 1] || null,
-          };
-        }
-        console.log(items);
-
-        if (option === "Z to A") {
-          const itemsReverse = Object.values(items).reverse();
-          const itemsKey = Object.keys(itemsReverse);
-          console.log(itemsReverse);
-          return {
-            items: itemsReverse,
-            lastKey: itemsKey[itemsKey.length - 1],
-          };
-        }
         const itemsKey = Object.keys(items);
-        // console.log(items);
-        return { items, lastKey: itemsKey[itemsKey.length - 1] || null };
+        // console.log("items", items);
+        console.log("itemsKey", itemsKey);
+        return {
+          items: Object.values(items),
+          lastKey: itemsKey[itemsKey.length - 1] || null,
+        };
       }
-
-      // console.log(items);
 
       return { items: {}, lastKey: null };
     } catch (error) {

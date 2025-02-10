@@ -5,11 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/users/operations";
 import { selectUser } from "../../redux/users/selectors";
 import { selectImage } from "../../redux/nannies/selectors";
-import { setImage } from "../../redux/nannies/slice";
-
-// import { auth, storage } from "../../firebase/firebaseConfig";
-// import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
-// import { updateProfile } from "firebase/auth";
+// import { setImage } from "../../redux/nannies/slice";
 
 export default function UserMenu() {
   const dispatch = useDispatch();
@@ -78,7 +74,7 @@ export default function UserMenu() {
           className={css.fileInput}
         />
 
-        <p>{user.name}</p>
+        {/* <p>{user.name}</p> */}
       </div>
       <Button onClick={handleLogout} className={css.button} type="button">
         Log out

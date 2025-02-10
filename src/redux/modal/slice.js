@@ -7,7 +7,7 @@ const initialState = {
 
   isOpenPopUp: false,
   isToggleTimePicker: false,
-  selectedItem: "A to Z",
+
   selectedTimeOption: null,
   currentIndex: 3,
 };
@@ -22,10 +22,6 @@ const modalSlice = createSlice({
 
     toggleTimePicker: (state) => {
       state.isToggleTimePicker = !state.isToggleTimePicker;
-    },
-
-    setSelectedItem: (state, action) => {
-      state.selectedItem = action.payload;
     },
 
     setSelectedTimeOption: (state, action) => {
@@ -66,7 +62,6 @@ const modalSlice = createSlice({
 export const {
   toggleIsOpenPopUp,
   toggleTimePicker,
-  setSelectedItem,
   setSelectedTimeOption,
   setCurrentIndex,
   openModalReg,

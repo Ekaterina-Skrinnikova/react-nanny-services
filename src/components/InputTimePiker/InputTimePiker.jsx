@@ -4,6 +4,7 @@ import { WiTime4 } from "react-icons/wi";
 import css from "../InputTimePiker/InputTimePiker.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  // setSelectedTimeOption,
   // setCurrentIndex,
   // setSelectedTimeOption,
   toggleTimePicker,
@@ -20,16 +21,13 @@ export default function InputTimePiker({ value, onChange, options }) {
   // const selectedTimeOption = useSelector(selectSelectedTimeOption);
   // const currentIndex = useSelector(selectCurrentIndex);
   const dropdownRef = useRef(null);
-  // const timeOptions = [
-  //   "08:00",
-  //   "08:30",
-  //   "09:00",
-  //   "09:30",
-  //   "10:00",
-  //   "10:30",
-  //   "11:00",
-  //   "11:30",
-  // ];
+
+  // console.log("isToggleTimePicker", isToggleTimePicker);
+  // console.log("value", value);
+  // console.log("options", options);
+  // console.log("selectedTimeOption", selectedTimeOption);
+  // console.log("onChange", onChange);
+  // console.log("options", options);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -48,8 +46,13 @@ export default function InputTimePiker({ value, onChange, options }) {
     };
   }, [isToggleTimePicker, dispatch]);
 
-  const handleTimePicker = () => {
+  const handleToggle = () => {
     dispatch(toggleTimePicker());
+  };
+
+  const handleOptionClick = (timeOption) => {
+    console.log("click", timeOption);
+    // onChange(timeOption);
   };
 
   // console.log("Selected time:", value);
@@ -79,9 +82,9 @@ export default function InputTimePiker({ value, onChange, options }) {
         className={css.timeInput}
         placeholder="00:00"
         readOnly
-        value={value ?? ""}
+        value={value}
       />
-      <button className={css.timeIcon} onClick={handleTimePicker} type="button">
+      <button className={css.timeIcon} onClick={handleToggle} type="button">
         <WiTime4 size={20} />
       </button>
 
@@ -98,7 +101,7 @@ export default function InputTimePiker({ value, onChange, options }) {
                       [css.timeOptionActive]: value === timeOption,
                     })}
                     key={i}
-                    onClick={() => onChange(timeOption)}
+                    onClick={() => handleOptionClick(timeOption)}
                   >
                     {timeOption}
                   </li>

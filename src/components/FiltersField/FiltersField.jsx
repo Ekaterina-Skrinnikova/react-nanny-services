@@ -2,11 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import sprite from "../../images/sprite.svg";
 import css from "../FiltersField/FiltersField.module.css";
-import { setSelectedItem, toggleIsOpenPopUp } from "../../redux/modal/slice.js";
-import {
-  selectIsOpenPopUp,
-  selectSelectedItem,
-} from "../../redux/modal/selectors.js";
+import { toggleIsOpenPopUp } from "../../redux/modal/slice.js";
+import { selectIsOpenPopUp } from "../../redux/modal/selectors.js";
+import { useEffect } from "react";
+import { getNannies } from "../../redux/nannies/operations.js";
+import { selectSelectedItem } from "../../redux/nannies/selectors.js";
+import { setSelectedItem } from "../../redux/nannies/slice.js";
 
 export default function FiltersField() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function FiltersField() {
     "Show all",
   ];
 
-  const handleButtonClick = (e) => {
+  const handleButtonClick = () => {
     dispatch(toggleIsOpenPopUp());
   };
 
@@ -31,6 +32,10 @@ export default function FiltersField() {
     dispatch(setSelectedItem(option));
     dispatch(toggleIsOpenPopUp());
   };
+
+  useEffect(() => {
+    dispatch(getNannies(selectedItem));
+  }, [dispatch, selectedItem]);
 
   return (
     <div className="select">

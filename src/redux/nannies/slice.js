@@ -1,20 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { buildQuery, getAllNannies } from "./operations";
+import { getNannies } from "./operations";
 
 const initialState = {
-  nanniesAll: [],
   nannies: [],
-
-  faivoritesListNannies: JSON.parse(localStorage.getItem("faivorites")) || [],
-
+  faivoritesListNannies: [],
   savedNanny: null,
-
   image: null,
 
+  page: 1,
   perPage: 3,
-  lastVisibleKey: null,
-  isExpanded: false,
 
+  isExpanded: false,
+  selectedItem: "A to Z",
   isLoading: false,
   error: null,
 };
@@ -35,10 +32,20 @@ const nanniesSlice = createSlice({
       state.image = action.payload;
     },
 
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
+
+    setSelectedItem: (state, action) => {
+      state.selectedItem = action.payload;
+      state.page = 1;
+      state.nannies = [];
+    },
+
     changeFaivoritesListNannies: (state, action) => {
-      if (!state.faivoritesListNannies) {
-        state.faivoritesListNannies = [];
-      }
+      //   if (!state.faivoritesListNannies) {
+      //     state.faivoritesListNannies = [];
+      //   }
 
       if (!state.faivoritesListNannies.includes(action.payload)) {
         state.faivoritesListNannies = [
@@ -55,33 +62,23 @@ const nanniesSlice = createSlice({
 
   extraReducers: (builder) =>
     builder
-      .addCase(getAllNannies.pending, (state) => {
+      .addCase(getNannies.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getAllNannies.fulfilled, (state, action) => {
-        state.nanniesAll = action.payload || [];
-        state.isLoading = false;
-      })
-      .addCase(getAllNannies.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(buildQuery.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(buildQuery.fulfilled, (state, action) => {
-        const newItems = Object.values(action.payload.items) || [];
-        state.nannies = Array.from(
-          new Map(
-            [...state.nannies, ...newItems].map((el) => [el.id, el])
-          ).values()
+      .addCase(getNannies.fulfilled, (state, action) => {
+        const newNannies = action.payload.filter(
+          (newNanny) =>
+            !state.nannies.some(
+              (existingNanny) => existingNanny.id === newNanny.id
+            )
         );
-        state.lastVisibleKey = action.payload.lastKey;
+
+        state.nannies = [...state.nannies, ...newNannies];
+
         state.isLoading = false;
       })
-      .addCase(buildQuery.rejected, (state, action) => {
+      .addCase(getNannies.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       }),
@@ -122,6 +119,8 @@ export const {
   expanded,
   setSavedNanny,
   setImage,
+  setPage,
+  setSelectedItem,
   changeFaivoritesListNannies,
 } = nanniesSlice.actions;
 

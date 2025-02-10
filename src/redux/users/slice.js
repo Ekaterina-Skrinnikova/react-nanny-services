@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { login, logout, registration } from "./operations";
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem("persist:auth")).user,
+  user: null,
   accessToken: null,
 
   isLoggedIn: false,
@@ -21,9 +21,11 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(registration.fulfilled, (state, action) => {
-        state.accessToken = action.payload;
-        state.isLoading = false;
+        console.log("user", action.payload.user);
+        state.user = action.payload.user;
+        state.accessToken = action.payload.session.access_token;
         state.isLoggedIn = true;
+        state.isLoading = false;
       })
       .addCase(registration.rejected, (state, action) => {
         state.error = action.payload;
@@ -34,9 +36,10 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.user = action.payload;
-        state.isLoading = false;
+        state.user = action.payload.user;
+        state.accessToken = action.payload.session.access_token;
         state.isLoggedIn = true;
+        state.isLoading = false;
       })
       .addCase(login.rejected, (state, action) => {
         state.error = action.payload;

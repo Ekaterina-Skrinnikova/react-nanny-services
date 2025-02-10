@@ -22,7 +22,7 @@ export default function MakeAppointmentForm({ nanny }) {
       address: "",
       phone: "",
       childAge: "",
-      timeMeeting: "",
+      timeMeeting: "09:00",
       email: "",
       fatherOrMatherName: "",
       comment: "",
@@ -42,14 +42,13 @@ export default function MakeAppointmentForm({ nanny }) {
 
   const onSubmit = (data) => {
     console.log(data);
-    dispatch(registration(data));
     reset();
     dispatch(closeModalMakeAppointment());
   };
 
-  const getValue = (value) => {
-    return value ? timeOptions.find((option) => option === value) : "";
-  };
+  // const getValue = (value) => {
+  //   return value ? timeOptions.find((option) => option === value) : "";
+  // };
 
   return (
     <Modal modalClose={closeModalMakeAppointment()} className={css.width}>
@@ -115,16 +114,18 @@ export default function MakeAppointmentForm({ nanny }) {
             <Controller
               name="timeMeeting"
               control={control}
-              defaultValue="09:00"
               render={({
                 field: { value, onChange },
-                fieldState: { errors },
+                fieldState: { error },
               }) => (
-                <InputTimePiker
-                  options={timeOptions}
-                  value={getValue(value)}
-                  onChange={(newValue) => onChange(newValue)}
-                />
+                <>
+                  <InputTimePiker
+                    options={timeOptions}
+                    value={value}
+                    onChange={onChange}
+                  />
+                  {error && <span>{error.massege}</span>}
+                </>
               )}
             />
           </div>

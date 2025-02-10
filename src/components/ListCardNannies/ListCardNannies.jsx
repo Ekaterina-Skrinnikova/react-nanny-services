@@ -1,35 +1,33 @@
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectLastVisibleKey,
-  selectNannies,
-  selectNanniesAll,
-  selectPerPage,
-} from "../../redux/nannies/selectors.js";
 import CardNanny from "../CardNanny/CardNanny";
 import css from "../ListCardNannies/ListCardNannies.module.css";
 import Button from "../Button/Button.jsx";
-import { selectSelectedItem } from "../../redux/modal/selectors.js";
-import { buildQuery } from "../../redux/nannies/operations.js";
+// import { selectSelectedItem } from "../../redux/modal/selectors.js";
+// import { getNannies } from "../../redux/nannies/operations.js";
+import {
+  selectNannies,
+  selectPage,
+  // selectPerPage,
+} from "../../redux/nannies/selectors.js";
+import { setPage } from "../../redux/nannies/slice.js";
 
 export default function ListCardNannies() {
   const dispatch = useDispatch();
   const nannies = useSelector(selectNannies);
-  const nanniesAll = useSelector(selectNanniesAll);
-  const perPage = useSelector(selectPerPage);
-  const lastVisibleKey = useSelector(selectLastVisibleKey);
-  const option = useSelector(selectSelectedItem);
+  const page = useSelector(selectPage);
+  // const option = useSelector(selectSelectedItem);
+  // const perPage = useSelector(selectPerPage);
 
-  // console.log("lastVisibleKey=list", lastVisibleKey);
-  // console.log(nanniesAll);
-  // console.log(option);
+  console.log(nannies);
+  console.log(page);
 
   const handleLoadMoreClick = () => {
     // console.log("statr");
-    dispatch(buildQuery({ lastVisibleKey, perPage, option }));
+    dispatch(setPage(page + 1));
   };
 
-  const isLoadAll = nannies.length === nanniesAll.length;
+  // const isLoadAll = nannies.length === nanniesAll.length;
 
   return (
     <div className={css.wrapper}>
@@ -46,7 +44,7 @@ export default function ListCardNannies() {
       </ul>
 
       <Button
-        className={clsx(!isLoadAll ? css.btn : "visually-hidden")}
+        // className={clsx(!isLoadAll ? css.btn : "visually-hidden")}
         type="button"
         onClick={handleLoadMoreClick}
       >

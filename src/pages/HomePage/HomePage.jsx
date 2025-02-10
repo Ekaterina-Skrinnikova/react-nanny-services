@@ -1,5 +1,3 @@
-// import { useDispatch } from "react-redux";
-// import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Button from "../../components/Button/Button";
 import RegisterForm from "../../components/RegistrationForm/RegistrationForm";
@@ -10,16 +8,10 @@ import {
   selectIsOpenModalReg,
 } from "../../redux/modal/selectors";
 import LogInForm from "../../components/LogInForm/LogInForm";
-// import { getAllNannies } from "../../redux/nannies/operations.js";
 
 export default function HomePage() {
   const isOpenModalReg = useSelector(selectIsOpenModalReg);
   const isOpenModalLogin = useSelector(selectIsOpenModalLogin);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getAllNannies());
-  // }, [dispatch]);
 
   return (
     <>

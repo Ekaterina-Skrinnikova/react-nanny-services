@@ -1,18 +1,16 @@
 export const selectNannies = (state) => state.nannies.nannies;
 
-export const selectNanniesAll = (state) => state.nannies.nanniesAll;
-
 export const selectSavedNanny = (state) => state.nannies.savedNanny;
 
 export const selectImage = (state) => state.nannies.image;
 
-export const selectFaivoritesListNannies = (state) =>
-  state.nannies.faivoritesListNannies;
+export const selectPage = (state) => state.nannies.page;
 
 export const selectPerPage = (state) => state.nannies.perPage;
 
-export const selectOption = (state) => state.nannies.option;
+export const selectFaivoritesListNannies = (state) =>
+  state.nannies.faivoritesListNannies;
 
-export const selectLastVisibleKey = (state) => state.nannies.lastVisibleKey;
+export const selectSelectedItem = (state) => state.nannies.selectedItem;
 
 export const selectIsExpanded = (state) => state.nannies.isExpanded;

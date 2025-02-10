@@ -1,12 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-// import { auth } from "../../firebase/firebaseConfig.js";
-// import {
-//   createUserWithEmailAndPassword,
-//   signInWithEmailAndPassword,
-//   updateProfile,
-//   signOut,
-// } from "firebase/auth/cordova";
-
 import { supabase } from "../../supabase/supabase-client";
 
 export const registration = createAsyncThunk(
@@ -89,7 +81,6 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
     await supabase.auth.signOut();
     localStorage.clear();
-    // console.log("logout");
   } catch (error) {
     console.log("err:", error);
     return thunkAPI.rejectWithValue(error.message);

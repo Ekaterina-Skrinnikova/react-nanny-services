@@ -8,6 +8,8 @@ export const selectPage = (state) => state.nannies.page;
 
 export const selectPerPage = (state) => state.nannies.perPage;
 
+export const selectCountNannies = (state) => state.nannies.countNannies;
+
 export const selectFaivoritesListNannies = (state) =>
   state.nannies.faivoritesListNannies;
 

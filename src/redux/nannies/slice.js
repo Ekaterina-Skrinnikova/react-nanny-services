@@ -9,6 +9,7 @@ const initialState = {
 
   page: 1,
   perPage: 3,
+  countNannies: null,
 
   isExpanded: false,
   selectedItem: "A to Z",
@@ -43,10 +44,6 @@ const nanniesSlice = createSlice({
     },
 
     changeFaivoritesListNannies: (state, action) => {
-      //   if (!state.faivoritesListNannies) {
-      //     state.faivoritesListNannies = [];
-      //   }
-
       if (!state.faivoritesListNannies.includes(action.payload)) {
         state.faivoritesListNannies = [
           ...state.faivoritesListNannies,
@@ -67,7 +64,7 @@ const nanniesSlice = createSlice({
         state.error = null;
       })
       .addCase(getNannies.fulfilled, (state, action) => {
-        const newNannies = action.payload.filter(
+        const newNannies = action.payload.nanniesData.filter(
           (newNanny) =>
             !state.nannies.some(
               (existingNanny) => existingNanny.id === newNanny.id
@@ -75,7 +72,7 @@ const nanniesSlice = createSlice({
         );
 
         state.nannies = [...state.nannies, ...newNannies];
-
+        state.countNannies = action.payload.countData;
         state.isLoading = false;
       })
       .addCase(getNannies.rejected, (state, action) => {

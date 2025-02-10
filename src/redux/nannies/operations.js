@@ -5,8 +5,6 @@ export const getNannies = createAsyncThunk(
   "nannies/getNannies",
   async ({ option, page, perPage }, thunkAPI) => {
     try {
-      //   console.log(option, page, perPage);
-
       let query = supabase.from("babysitters").select("*");
 
       if (option === "A to Z") {
@@ -26,18 +24,23 @@ export const getNannies = createAsyncThunk(
       const from = (page - 1) * perPage;
       const to = from + perPage - 1;
 
-      //   console.log("from", from, "To", to);
+      const { data: nanniesData, error: nanniesError } = await query.range(
+        from,
+        to
+      );
 
-      const { data, error } = await query.range(from, to);
-
-      if (error) {
+      if (nanniesError) {
         console.log("Помилка при отриманні даних", error);
         return thunkAPI.rejectWithValue("Помилка при отриманні даних");
       }
 
-      //   console.log("Няни:", data);
+      const { data: countData, error } = await supabase
+        .from("babysitters")
+        .select("id", { count: "exact" });
 
-      return data;
+      // console.log("Няни:", { nanniesData, countData: countData.length });
+
+      return { nanniesData, countData: countData.length };
     } catch (error) {
       console.log("Помилка запиту:", error);
       return thunkAPI.rejectWithValue(error.message);

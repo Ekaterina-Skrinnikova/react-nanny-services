@@ -1,24 +1,20 @@
 import { useSelector } from "react-redux";
 import {
   selectFaivoritesListNannies,
-  selectNanniesAll,
+  selectNannies,
 } from "../../redux/nannies/selectors";
 import CardNanny from "../CardNanny/CardNanny";
 import css from "../../components/ListFaivoritesNannies/ListFaivoritesNannies.module.css";
 
 export default function ListFaivoritesNannies() {
   const listFaivoritesNannies = useSelector(selectFaivoritesListNannies);
-  const nanniesAll = useSelector(selectNanniesAll);
-  // console.log(listFaivoritesNannies);
-  // console.log(nanniesAll);
+  const nannies = useSelector(selectNannies);
+
   return (
     <div className={css.wrapper}>
       <ul>
-        {nanniesAll &&
-        nanniesAll.length > 0 &&
-        listFaivoritesNannies &&
-        listFaivoritesNannies.length > 0 ? (
-          nanniesAll
+        {listFaivoritesNannies && listFaivoritesNannies.length > 0 ? (
+          nannies
             .filter(
               (nanny) => nanny && listFaivoritesNannies.includes(nanny.id)
             )

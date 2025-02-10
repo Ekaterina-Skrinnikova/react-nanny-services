@@ -9,30 +9,37 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { supabase } from "../../supabase/supabase-client";
 
-// import { onAuthStateChanged } from "firebase/auth";
-
 export const registration = createAsyncThunk(
   "auth/registration",
-  async ({ email, password }, thunkAPI) => {
+  async ({ name, email, password }, thunkAPI) => {
     try {
-      await supabase.auth.signUp({
+      const { data: userData, error: userError } = await supabase.auth.signUp({
         email,
         password,
       });
 
-      const { data, error } = await supabase.auth.getUser();
-
-      if (error) {
-        console.log("Error:", error);
+      if (userError) {
+        console.log("Error:", userError);
       }
 
-      if (!data) {
+      if (!userData || !userData.user) {
         return thunkAPI.rejectWithValue(
           "Реєстрація не вдалася, користувач не створений"
         );
       }
-      console.log("User", data);
-      return data;
+
+      const { data: profileData, error: profileError } = await supabase
+        .from("profile")
+        .insert({ name: name, user_id: userData.user.id })
+        .select();
+
+      if (profileError) {
+        console.log("Помилка створення профілю:", profileError.message);
+        return thunkAPI.rejectWithValue("Не вдалося створити профіль");
+      }
+
+      console.log("User", { userData: userData, profileData: profileData });
+      return { userData: userData, profileData: profileData };
     } catch (error) {
       console.log("Непередбачена помилка:", error.message);
       return thunkAPI.rejectWithValue(error.message || "Невідома помилка");
@@ -44,20 +51,33 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }, thunkAPI) => {
     try {
-      await supabase.auth.signInWithPassword({ email, password });
+      const { data: userData, error: userError } =
+        await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
 
-      const { data, error } = await supabase.auth.getUser();
-
-      if (error) {
-        console.log("Error:", error);
+      if (userError) {
+        console.log("Error:", userError);
       }
 
-      if (!data) {
+      if (!userData || !userData.user) {
         return thunkAPI.rejectWithValue("Користувача немає в базі");
       }
 
-      console.log("User", data);
-      return data;
+      const { data: profileData, error: profileError } = await supabase
+        .from("profile")
+        .select("*")
+        .eq("user_id", userData.user.id)
+        .select();
+
+      if (profileError) {
+        console.log("Помилка отримання профілю:", profileError.message);
+        return thunkAPI.rejectWithValue("Не вдалося отримати профіль");
+      }
+
+      console.log("user", { userData: userData, profileData: profileData });
+      return { userData: userData, profileData: profileData };
     } catch (error) {
       console.log("error:", error);
       return thunkAPI.rejectWithValue(error.message || "Невідома помилка");
@@ -75,68 +95,3 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
-
-// export const registration = createAsyncThunk(
-//   "auth/registration",
-//   async ({ name, email, password }, thunkAPI) => {
-//     try {
-//       await createUserWithEmailAndPassword(auth, email, password);
-
-//       const user = auth.currentUser;
-
-//       await updateProfile(user, { displayName: name });
-
-//       return {
-//         uid: user.uid,
-//         accessToken: user.accessToken,
-//         name: user.displayName,
-//         email: user.email,
-//       };
-//     } catch (error) {
-//       console.log(error.message);
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
-
-// export const login = createAsyncThunk(
-//   "auth/login",
-//   async ({ email, password }, thunkAPI) => {
-//     try {
-//       await signInWithEmailAndPassword(auth, email, password);
-
-//       const user = auth.currentUser;
-
-//       return {
-//         uid: user.uid,
-//         accessToken: user.accessToken,
-//         name: user.displayName,
-//         email: user.email,
-//       };
-//     } catch (error) {
-//       console.log("error:", error);
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
-
-// export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
-//   try {
-//     await signOut(auth);
-//     localStorage.clear();
-//     // console.log("logout");
-//   } catch (error) {
-//     console.log("err:", error);
-//     return thunkAPI.rejectWithValue(error.message);
-//   }
-// });
-
-// onAuthStateChanged(auth, (user) => {
-//   if (user) {
-//     // console.log("user", user);
-//     // localStorage.setItem("user", JSON.stringify(user));
-//   } else {
-//     console.log("User is signed out");
-//     localStorage.clear();
-//   }
-// });

@@ -25,11 +25,11 @@ export default function Nannies() {
   const page = useSelector(selectPage);
   const perPage = useSelector(selectPerPage);
   const option = useSelector(selectSelectedItem);
-  console.log(option, page, perPage);
+  // console.log(option, page, perPage);
 
   useEffect(() => {
     dispatch(getNannies({ option, page, perPage }));
-    console.log("page", page);
+    // console.log("page", page);
   }, [dispatch, option, page, perPage]);
 
   return (

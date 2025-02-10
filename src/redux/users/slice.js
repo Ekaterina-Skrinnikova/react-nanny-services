@@ -3,6 +3,7 @@ import { login, logout, registration } from "./operations";
 
 const initialState = {
   user: null,
+  name: null,
   accessToken: null,
 
   isLoggedIn: false,
@@ -21,9 +22,9 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(registration.fulfilled, (state, action) => {
-        console.log("user", action.payload.user);
-        state.user = action.payload.user;
-        state.accessToken = action.payload.session.access_token;
+        state.user = action.payload.userData.user;
+        state.name = action.payload.profileData[0].name;
+        state.accessToken = action.payload.userData.session.access_token;
         state.isLoggedIn = true;
         state.isLoading = false;
       })
@@ -36,8 +37,9 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.accessToken = action.payload.session.access_token;
+        state.user = action.payload.userData.user;
+        state.name = action.payload.profileData[0].name;
+        state.accessToken = action.payload.userData.session.access_token;
         state.isLoggedIn = true;
         state.isLoading = false;
       })
@@ -51,6 +53,8 @@ const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
+        state.name = null;
+        state.accessToken = null;
         state.isLoading = false;
         state.isLoggedIn = false;
       })

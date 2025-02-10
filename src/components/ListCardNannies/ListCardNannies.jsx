@@ -19,8 +19,8 @@ export default function ListCardNannies() {
   // const option = useSelector(selectSelectedItem);
   // const perPage = useSelector(selectPerPage);
 
-  console.log(nannies);
-  console.log(page);
+  // console.log(nannies);
+  // console.log(page);
 
   const handleLoadMoreClick = () => {
     // console.log("statr");

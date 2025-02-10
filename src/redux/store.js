@@ -18,13 +18,13 @@ import headerReducer from "../redux/header/slice";
 const authPersistConfig = {
   key: "auth",
   storage,
-  whitelist: ["user", "isLoggedIn"],
+  whitelist: ["user", "name", "isLoggedIn"],
 };
 
 const nanniesPersistConfig = {
   key: "nannies",
   storage,
-  whitelist: ["faivoritesListNannies", "image"],
+  whitelist: ["faivoritesListNannies", "image", "selectedItem"],
 };
 
 const modalPersistConfig = {

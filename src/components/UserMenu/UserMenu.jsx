@@ -3,14 +3,14 @@ import sprite from "../../images/sprite.svg";
 import Button from "../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/users/operations";
-import { selectUser } from "../../redux/users/selectors";
+import { selectUserName } from "../../redux/users/selectors";
 import { selectImage } from "../../redux/nannies/selectors";
 // import { setImage } from "../../redux/nannies/slice";
 
 export default function UserMenu() {
   const dispatch = useDispatch();
 
-  const user = useSelector(selectUser);
+  const userName = useSelector(selectUserName);
   const image = useSelector(selectImage);
 
   const handleLogout = () => {
@@ -74,7 +74,7 @@ export default function UserMenu() {
           className={css.fileInput}
         />
 
-        {/* <p>{user.name}</p> */}
+        <p>{userName}</p>
       </div>
       <Button onClick={handleLogout} className={css.button} type="button">
         Log out

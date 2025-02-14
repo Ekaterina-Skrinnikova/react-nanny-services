@@ -1,16 +1,20 @@
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../Button/Button";
-import { registration } from "../../redux/users/operations";
 import { closeModalMakeAppointment } from "../../redux/modal/slice";
 import Modal from "../Modal/Modal";
 import css from "../MakeAppointmentForm/MakeAppointmentForm.module.css";
 import InputTimePiker from "../InputTimePiker/InputTimePiker";
 import { selectSavedNanny } from "../../redux/nannies/selectors";
+import { schemaForMakeAppointment } from "../schemas";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+// import { selectSelectedTimeOption } from "../../redux/modal/selectors";
 
 export default function MakeAppointmentForm({ nanny }) {
   const dispatch = useDispatch();
   const savedNanny = useSelector(selectSavedNanny);
+  // const selectedTimeOption = useSelector(selectSelectedTimeOption);
   const {
     register,
     handleSubmit,
@@ -18,11 +22,12 @@ export default function MakeAppointmentForm({ nanny }) {
     reset,
     control,
   } = useForm({
-    defaultValues: {
+    resolver: yupResolver(schemaForMakeAppointment),
+    valuesDefault: {
       address: "",
       phone: "",
       childAge: "",
-      timeMeeting: "09:00",
+      timeMeeting: "",
       email: "",
       fatherOrMatherName: "",
       comment: "",
@@ -45,10 +50,6 @@ export default function MakeAppointmentForm({ nanny }) {
     reset();
     dispatch(closeModalMakeAppointment());
   };
-
-  // const getValue = (value) => {
-  //   return value ? timeOptions.find((option) => option === value) : "";
-  // };
 
   return (
     <Modal modalClose={closeModalMakeAppointment()} className={css.width}>
@@ -79,10 +80,10 @@ export default function MakeAppointmentForm({ nanny }) {
               <input
                 className={css.input}
                 placeholder="Address"
-                {...register("address", { required: true, maxLength: 30 })}
+                {...register("address")}
               />
               {errors.address && (
-                <span className={css.error}>Format address is wrong</span>
+                <span className={css.error}>{errors.address.message}</span>
               )}
             </div>
 
@@ -91,29 +92,30 @@ export default function MakeAppointmentForm({ nanny }) {
                 className={css.input}
                 type="tel"
                 placeholder="+380"
-                {...register("phone", { required: true, maxLength: 30 })}
+                {...register("phone")}
               />
-              {errors.tel && (
-                <span className={css.error}>Format phone is wrong</span>
+              {errors.phone && (
+                <span className={css.error}>{errors.phone.message}</span>
               )}
             </div>
           </div>
 
           <div className={css.blockInput}>
-            <div>
+            <>
               <input
                 className={css.input}
                 type="number"
                 placeholder="Child's age"
-                {...register("childAge", { required: true, maxLength: 2 })}
+                {...register("childAge")}
               />
-              {errors.number && (
-                <span className={css.error}>Format number is wrong</span>
+              {errors.childAge && (
+                <span className={css.error}>{errors.childAge.message}</span>
               )}
-            </div>
+            </>
             <Controller
               name="timeMeeting"
               control={control}
+              defaultValue=""
               render={({
                 field: { value, onChange },
                 fieldState: { error },
@@ -124,7 +126,7 @@ export default function MakeAppointmentForm({ nanny }) {
                     value={value}
                     onChange={onChange}
                   />
-                  {error && <span>{error.massege}</span>}
+                  {error && <span>{error.message}</span>}
                 </>
               )}
             />
@@ -133,39 +135,34 @@ export default function MakeAppointmentForm({ nanny }) {
           <div>
             <input
               className={css.input}
-              {...register("email", {
-                required: true,
-                pattern: /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/,
-              })}
+              {...register("email")}
               placeholder="Email"
             />
             {errors.email && (
-              <span className={css.error}>Format email is wrong</span>
+              <span className={css.error}>{errors.email.message}</span>
             )}
           </div>
 
           <div>
             <input
               className={css.input}
-              {...register("name", {
-                required: true,
-              })}
+              {...register("fatherOrMatherName")}
               placeholder="Father's or mother's name"
             />
-            {errors.name && (
-              <span className={css.error}>Format name is wrong</span>
+            {errors.fatherOrMatherName && (
+              <span className={css.error}>
+                {errors.fatherOrMatherName.message}
+              </span>
             )}
           </div>
 
           <textarea
             className={css.textarea}
-            {...register("comment", {
-              required: false,
-            })}
+            {...register("comment")}
             placeholder="Comment"
           />
           {errors.comment && (
-            <span className={css.error}>Format email is wrong</span>
+            <span className={css.error}>{errors.comment.message}</span>
           )}
         </div>
 

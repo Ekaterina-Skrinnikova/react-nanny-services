@@ -24,7 +24,13 @@ const authPersistConfig = {
 const nanniesPersistConfig = {
   key: "nannies",
   storage,
-  whitelist: ["faivoritesListNannies", "image", "selectedItem", "countNannies"],
+  whitelist: [
+    "nannies",
+    "faivoritesListNannies",
+    "image",
+    "selectedItem",
+    "countNannies",
+  ],
 };
 
 const modalPersistConfig = {

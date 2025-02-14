@@ -22,13 +22,11 @@ export default function InputTimePiker({ value, onChange, options }) {
   // const currentIndex = useSelector(selectCurrentIndex);
   const dropdownRef = useRef(null);
 
-  // console.log("isToggleTimePicker", isToggleTimePicker);
   // console.log("value", value);
-  // console.log("options", options);
-  // console.log("selectedTimeOption", selectedTimeOption);
   // console.log("onChange", onChange);
   // console.log("options", options);
-
+  // console.log("selectedTimeOption", selectedTimeOption);
+  // console.log("isToggleTimePicker", isToggleTimePicker);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -50,9 +48,10 @@ export default function InputTimePiker({ value, onChange, options }) {
     dispatch(toggleTimePicker());
   };
 
-  const handleOptionClick = (timeOption) => {
-    console.log("click", timeOption);
-    // onChange(timeOption);
+  const handleOptionClick = (time) => {
+    console.log("click", time);
+    // dispatch(setSelectedTimeOption(time));
+    onChange(time);
   };
 
   // console.log("Selected time:", value);
@@ -82,7 +81,7 @@ export default function InputTimePiker({ value, onChange, options }) {
         className={css.timeInput}
         placeholder="00:00"
         readOnly
-        value={value}
+        value={value ?? ""}
       />
       <button className={css.timeIcon} onClick={handleToggle} type="button">
         <WiTime4 size={20} />
@@ -97,11 +96,14 @@ export default function InputTimePiker({ value, onChange, options }) {
               options.map((timeOption, i) => {
                 return (
                   <li
+                    key={i}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleOptionClick(timeOption);
+                    }}
                     className={clsx(css.timeOption, {
                       [css.timeOptionActive]: value === timeOption,
                     })}
-                    key={i}
-                    onClick={() => handleOptionClick(timeOption)}
                   >
                     {timeOption}
                   </li>

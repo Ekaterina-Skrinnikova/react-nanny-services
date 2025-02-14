@@ -6,6 +6,8 @@ import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
 import css from "../LogInForm/LogInForm.module.css";
 import { login } from "../../redux/users/operations";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schemaLogin } from "../schemas";
 
 export default function LogInForm() {
   const navigate = useNavigate();
@@ -16,7 +18,8 @@ export default function LogInForm() {
     formState: { errors },
     reset,
   } = useForm({
-    defaultValues: {
+    resolver: yupResolver(schemaLogin),
+    valuesDefault: {
       email: "",
       password: "",
     },
@@ -42,25 +45,20 @@ export default function LogInForm() {
         <div className={css.wrap}>
           <input
             className={css.input}
-            {...register("email", {
-              required: true,
-              pattern: /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/,
-            })}
+            {...register("email")}
             placeholder="Email"
           />
           {errors.email && (
-            <span className={css.error}>Format email is wrong</span>
+            <span className={css.error}>{errors.email.message}</span>
           )}
 
           <input
             className={css.input}
-            {...register("password", {
-              required: true,
-            })}
+            {...register("password")}
             placeholder="Password"
           />
           {errors.password && (
-            <span className={css.error}>Format email is wrong</span>
+            <span className={css.error}>{errors.password.message}</span>
           )}
         </div>
 

@@ -9,18 +9,19 @@ import css from "../../components/ListFaivoritesNannies/ListFaivoritesNannies.mo
 export default function ListFaivoritesNannies() {
   const listFaivoritesNannies = useSelector(selectFaivoritesListNannies);
   const nannies = useSelector(selectNannies);
+  console.log(listFaivoritesNannies);
 
   return (
     <div className={css.wrapper}>
       <ul>
-        {listFaivoritesNannies && listFaivoritesNannies.length > 0 ? (
+        {nannies.length > 0 ? (
           nannies
             .filter(
               (nanny) => nanny && listFaivoritesNannies.includes(nanny.id)
             )
             .map((nanny) => (
               <li className={css.space} key={nanny.id}>
-                {nanny && <CardNanny nanny={nanny} />}
+                <CardNanny nanny={nanny} />
               </li>
             ))
         ) : (

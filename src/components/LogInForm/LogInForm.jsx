@@ -1,13 +1,16 @@
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { closeModalLogin } from "../../redux/modal/slice";
+import { closeModalLogin, setShowPassword } from "../../redux/modal/slice";
 import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
 import css from "../LogInForm/LogInForm.module.css";
 import { login } from "../../redux/users/operations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "../schemas";
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa";
+import { selectShowPassword } from "../../redux/modal/selectors";
 
 export default function LogInForm() {
   const navigate = useNavigate();
@@ -24,6 +27,8 @@ export default function LogInForm() {
       password: "",
     },
   });
+
+  const showPassword = useSelector(selectShowPassword);
 
   const onSubmit = (data) => {
     dispatch(login(data));
@@ -52,11 +57,24 @@ export default function LogInForm() {
             <span className={css.error}>{errors.email.message}</span>
           )}
 
-          <input
-            className={css.input}
-            {...register("password")}
-            placeholder="Password"
-          />
+          <div className={css.wrapPassword}>
+            <input
+              type={showPassword ? "text" : "password"}
+              className={css.inputPassword}
+              {...register("password")}
+              placeholder="Password"
+            />
+            <button
+              className={css.btn}
+              onClick={() => dispatch(setShowPassword())}
+            >
+              {showPassword ? (
+                <FaRegEye size={20} />
+              ) : (
+                <FaRegEyeSlash size={20} />
+              )}
+            </button>
+          </div>
           {errors.password && (
             <span className={css.error}>{errors.password.message}</span>
           )}

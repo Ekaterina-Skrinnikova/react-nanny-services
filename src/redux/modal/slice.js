@@ -10,6 +10,8 @@ const initialState = {
 
   selectedTimeOption: null,
   currentIndex: 3,
+
+  showPassword: false,
 };
 
 const modalSlice = createSlice({
@@ -30,6 +32,10 @@ const modalSlice = createSlice({
 
     setCurrentIndex: (state, action) => {
       state.currentIndex = action.payload;
+    },
+
+    setShowPassword: (state) => {
+      state.showPassword = !state.showPassword;
     },
 
     openModalReg: (state) => {
@@ -64,6 +70,7 @@ export const {
   toggleTimePicker,
   setSelectedTimeOption,
   setCurrentIndex,
+  setShowPassword,
   openModalReg,
   closeModalReg,
   openModalLogin,

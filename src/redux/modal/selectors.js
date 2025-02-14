@@ -14,3 +14,5 @@ export const selectIsOpenModalLogin = (state) => state.modal.isOpenModalLogin;
 
 export const selectIsOpenModalMakeAppointment = (state) =>
   state.modal.isOpenModalMakeAppointment;
+
+export const selectShowPassword = (state) => state.modal.showPassword;

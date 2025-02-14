@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
 import Button from "../Button/Button";
 import css from "../RegistrationForm/RegistrationForm.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registration } from "../../redux/users/operations";
-import { closeModalReg } from "../../redux/modal/slice";
+import { closeModalReg, setShowPassword } from "../../redux/modal/slice";
 import Modal from "../Modal/Modal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaRegistretion } from "../schemas";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { selectShowPassword } from "../../redux/modal/selectors";
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
@@ -19,6 +21,8 @@ export default function RegisterForm() {
     resolver: yupResolver(schemaRegistretion),
     valuesDefault: { name: "", email: "", password: "" },
   });
+
+  const showPassword = useSelector(selectShowPassword);
 
   const onSubmit = (data) => {
     dispatch(registration(data));
@@ -54,11 +58,24 @@ export default function RegisterForm() {
             <span className={css.error}>{errors.email.message}</span>
           )}
 
-          <input
-            className={css.input}
-            {...register("password")}
-            placeholder="Password"
-          />
+          <div className={css.wrapPassword}>
+            <input
+              type={showPassword ? "text" : "password"}
+              className={css.inputPassword}
+              {...register("password")}
+              placeholder="Password"
+            />
+            <button
+              className={css.btn}
+              onClick={() => dispatch(setShowPassword())}
+            >
+              {showPassword ? (
+                <FaRegEye size={20} />
+              ) : (
+                <FaRegEyeSlash size={20} />
+              )}
+            </button>
+          </div>
           {errors.password && (
             <span className={css.error}>{errors.password.message}</span>
           )}

@@ -141,3 +141,7 @@
   border-right: none;
   border-bottom: solid 2px var(--base-text-color);
 }
+
+.btnWrap {
+  position: relative;
+}

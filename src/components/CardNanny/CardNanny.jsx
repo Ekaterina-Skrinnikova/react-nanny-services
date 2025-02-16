@@ -12,9 +12,14 @@ import {
   selectFaivoritesListNannies,
   selectIsExpanded,
 } from "../../redux/nannies/selectors.js";
-import { selectIsOpenModalMakeAppointment } from "../../redux/modal/selectors.js";
+import {
+  selectIsOpenModalMakeAppointment,
+  selectShowMessage,
+} from "../../redux/modal/selectors.js";
 import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm.jsx";
 import { selectIsLoggedIn } from "../../redux/users/selectors.js";
+import { setShowMessage } from "../../redux/modal/slice.js";
+import Notice from "../Notice/Notice.jsx";
 
 export default function CardNanny({ nanny }) {
   const isOpenModalMakeAppointment = useSelector(
@@ -43,15 +48,18 @@ export default function CardNanny({ nanny }) {
   ];
   const dispatch = useDispatch();
   const isExpanded = useSelector(selectIsExpanded);
+  const showMessage = useSelector(selectShowMessage);
 
   const handleReadMoreClick = () => {
     dispatch(expanded());
   };
 
   const handleFavoritesNanniesClick = (id) => {
-    console.log("work");
     if (isLoggedIn) {
       dispatch(changeFaivoritesListNannies(id));
+    } else {
+      dispatch(setShowMessage(true));
+      setTimeout(() => dispatch(setShowMessage(false)), 3000);
     }
   };
 
@@ -110,21 +118,26 @@ export default function CardNanny({ nanny }) {
                 </p>
               </div>
             </div>
-            <button
-              className={css.iconBtn}
-              type="button"
-              onClick={() => handleFavoritesNanniesClick(nanny.id)}
-            >
-              {isFaivorites ? (
-                <svg className={css.iconHeart}>
-                  <use href={`${sprite}#icon-heart-green`}></use>
-                </svg>
-              ) : (
-                <svg className={css.iconHeart}>
-                  <use href={`${sprite}#icon-heart`}></use>
-                </svg>
+            <div className={css.btnWrap}>
+              <button
+                className={css.iconBtn}
+                type="button"
+                onClick={() => handleFavoritesNanniesClick(nanny.id)}
+              >
+                {isFaivorites ? (
+                  <svg className={css.iconHeart}>
+                    <use href={`${sprite}#icon-heart-green`}></use>
+                  </svg>
+                ) : (
+                  <svg className={css.iconHeart}>
+                    <use href={`${sprite}#icon-heart`}></use>
+                  </svg>
+                )}
+              </button>
+              {showMessage && (
+                <Notice>The service is available to authorized users</Notice>
               )}
-            </button>
+            </div>
           </div>
         </div>
 

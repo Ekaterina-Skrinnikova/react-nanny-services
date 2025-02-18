@@ -12,25 +12,19 @@ import {
   selectFaivoritesListNannies,
   selectIsExpanded,
 } from "../../redux/nannies/selectors.js";
-import {
-  selectIsOpenModalMakeAppointment,
-  selectShowMessage,
-} from "../../redux/modal/selectors.js";
+import { selectIsOpenModalMakeAppointment } from "../../redux/modal/selectors.js";
 import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm.jsx";
 import { selectIsLoggedIn } from "../../redux/users/selectors.js";
-import { setShowMessage } from "../../redux/modal/slice.js";
 import Notice from "../Notice/Notice.jsx";
+import { useState } from "react";
 
 export default function CardNanny({ nanny }) {
   const isOpenModalMakeAppointment = useSelector(
     selectIsOpenModalMakeAppointment
   );
-
   const faivorites = useSelector(selectFaivoritesListNannies);
   const isFaivorites = faivorites.includes(nanny.id);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  // console.log(nanny.id);
-  // console.log(faivorites);
 
   const arrayTitles = [
     "Age",
@@ -48,7 +42,7 @@ export default function CardNanny({ nanny }) {
   ];
   const dispatch = useDispatch();
   const isExpanded = useSelector(selectIsExpanded);
-  const showMessage = useSelector(selectShowMessage);
+  const [showMessage, setShowMessage] = useState(false);
 
   const handleReadMoreClick = () => {
     dispatch(expanded());
@@ -58,8 +52,8 @@ export default function CardNanny({ nanny }) {
     if (isLoggedIn) {
       dispatch(changeFaivoritesListNannies(id));
     } else {
-      dispatch(setShowMessage(true));
-      setTimeout(() => dispatch(setShowMessage(false)), 3000);
+      setShowMessage(true);
+      setTimeout(() => setShowMessage(false), 3000);
     }
   };
 

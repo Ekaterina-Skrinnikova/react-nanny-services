@@ -22,6 +22,9 @@ export default function AppBar() {
       case "/nannies":
         dispatch(setTypeHeader("nannies"));
         break;
+      case "/welcome":
+        dispatch(setTypeHeader("nannies"));
+        break;
     }
   }, [dispatch, location]);
 

@@ -5,6 +5,7 @@ import Layout from "../Layout/Layout";
 import RestrictedRoute from "../RestrictedRoute";
 import PrivateRoute from "../PrivateRoute";
 
+const WelcomePage = lazy(() => import("../../pages/WelcomePage/WelcomePage"));
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const NanniesPage = lazy(() => import("../../pages/NanniesPage/NanniesPage"));
 const FavoritesPage = lazy(() =>
@@ -16,6 +17,7 @@ export default function App() {
     <Layout>
       <Suspense>
         <Routes>
+          <Route path="/welcome" element={<WelcomePage />} />
           <Route
             path="/"
             element={

@@ -12,7 +12,6 @@ const initialState = {
   currentIndex: 3,
 
   showPassword: false,
-  showMessage: false,
 };
 
 const modalSlice = createSlice({
@@ -37,10 +36,6 @@ const modalSlice = createSlice({
 
     setShowPassword: (state) => {
       state.showPassword = !state.showPassword;
-    },
-
-    setShowMessage: (state, action) => {
-      state.showMessage = action.payload;
     },
 
     openModalReg: (state) => {
@@ -76,7 +71,6 @@ export const {
   setSelectedTimeOption,
   setCurrentIndex,
   setShowPassword,
-  setShowMessage,
   openModalReg,
   closeModalReg,
   openModalLogin,

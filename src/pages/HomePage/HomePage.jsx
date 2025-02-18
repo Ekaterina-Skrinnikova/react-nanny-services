@@ -8,10 +8,16 @@ import {
   selectIsOpenModalReg,
 } from "../../redux/modal/selectors";
 import LogInForm from "../../components/LogInForm/LogInForm";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const isOpenModalReg = useSelector(selectIsOpenModalReg);
   const isOpenModalLogin = useSelector(selectIsOpenModalLogin);
+  const navigate = useNavigate();
+
+  const handleClickGetStatrted = () => {
+    navigate("/welcome");
+  };
 
   return (
     <>
@@ -19,7 +25,11 @@ export default function HomePage() {
         <div className={css.blockLeft}>
           <h1 className={css.title}>Make Life Easier for the Family:</h1>
           <p className={css.text}>Find Babysitters Online for All Occasions</p>
-          <Button className={css.button} type="button">
+          <Button
+            className={css.button}
+            type="button"
+            onClick={handleClickGetStatrted}
+          >
             Get started
             <svg className={css.icon}>
               <use href={`${sprite}#icon-arrow`}></use>

@@ -1,4 +1,3 @@
-import { PiPassword } from "react-icons/pi";
 import * as yup from "yup";
 
 export const schemaForMakeAppointment = yup.object().shape({
@@ -37,7 +36,7 @@ export const schemaRegistretion = yup.object().shape({
   password: yup
     .string()
     .min(6, "Password must be at least 6 characters")
-    .max(20, "Password must be at most 20 characters")
+    .max(30, "Password must be at most 30 characters")
     .required("Password is required"),
 });
 
@@ -49,6 +48,6 @@ export const schemaLogin = yup.object().shape({
   password: yup
     .string()
     .min(6, "Password must be at least 6 characters")
-    .max(20, "Password must be at most 20 characters")
+    .max(30, "Password must be at most 30 characters")
     .required("Password is required"),
 });

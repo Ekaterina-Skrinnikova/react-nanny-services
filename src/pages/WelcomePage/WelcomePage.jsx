@@ -17,10 +17,10 @@ export default function WelcomePage() {
   const isOpenModalLogin = useSelector(selectIsOpenModalLogin);
   const isOpenModalReg = useSelector(selectIsOpenModalReg);
 
-  useEffect(() => {
-    const isUser = JSON.parse(localStorage.getItem("persist:auth")).user;
-    setIsNewUser(isUser);
-  }, []);
+  // useEffect(() => {
+  //   const isUser = JSON.parse(localStorage.getItem("persist:auth")).user;
+  //   setIsNewUser(isUser);
+  // }, []);
 
   const handleOpenModalLogin = () => {
     dispatch(openModalLogin());
@@ -34,23 +34,20 @@ export default function WelcomePage() {
     <div className={css.wrapper}>
       <h1>Welcome!</h1>
 
-      <p>
-        {isNewUser ? (
-          <>
-            New here?
-            <button className={css.btn} onClick={handleOpenModalReg}>
-              Registration
-            </button>
-          </>
-        ) : (
-          <>
-            Already have an account?
-            <button className={css.btn} onClick={handleOpenModalLogin}>
-              Log in
-            </button>
-          </>
-        )}
-      </p>
+      <div className={css.blockOut}>
+        <div className={css.block}>
+          <p>Is this your first time here?</p>
+          <button className={css.btn} onClick={handleOpenModalReg}>
+            Registration
+          </button>
+        </div>
+        <div className={css.block}>
+          <p> Already have an account?</p>
+          <button className={css.btn} onClick={handleOpenModalLogin}>
+            Log In
+          </button>
+        </div>
+      </div>
 
       {isOpenModalLogin && <LogInForm />}
       {isOpenModalReg && <RegisterForm />}

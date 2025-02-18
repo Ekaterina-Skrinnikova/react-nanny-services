@@ -11,6 +11,8 @@ import { schemaLogin } from "../schemas";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { selectShowPassword } from "../../redux/modal/selectors";
+import { selectError } from "../../redux/users/selectors";
+import Notice from "../Notice/Notice";
 
 export default function LogInForm() {
   const navigate = useNavigate();
@@ -29,13 +31,18 @@ export default function LogInForm() {
   });
 
   const showPassword = useSelector(selectShowPassword);
+  const error = useSelector(selectError);
 
-  const onSubmit = (data) => {
-    dispatch(login(data));
-    // console.log(data);
-    reset();
-    dispatch(closeModalLogin());
-    navigate("/nannies");
+  const onSubmit = async (data) => {
+    try {
+      await dispatch(login(data)).unwrap();
+      reset();
+
+      dispatch(closeModalLogin());
+      navigate("/nannies");
+    } catch (error) {
+      console.log("Login error:", error);
+    }
   };
 
   return (
@@ -84,6 +91,7 @@ export default function LogInForm() {
           Log In
         </Button>
       </form>
+      {error && <Notice>{error}</Notice>}
     </Modal>
   );
 }

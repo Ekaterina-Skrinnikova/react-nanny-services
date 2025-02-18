@@ -12,6 +12,9 @@ export const registration = createAsyncThunk(
 
       if (userError) {
         console.log("Error:", userError);
+        return thunkAPI.rejectWithValue(
+          userError.message || "Помилка реєстрації"
+        );
       }
 
       if (!userData || !userData.user) {
@@ -51,6 +54,7 @@ export const login = createAsyncThunk(
 
       if (userError) {
         console.log("Error:", userError);
+        return thunkAPI.rejectWithValue(userError.message || "Помилка логіну");
       }
 
       if (!userData || !userData.user) {
@@ -60,8 +64,7 @@ export const login = createAsyncThunk(
       const { data: profileData, error: profileError } = await supabase
         .from("profile")
         .select("*")
-        .eq("user_id", userData.user.id)
-        .select();
+        .eq("user_id", userData.user.id);
 
       if (profileError) {
         console.log("Помилка отримання профілю:", profileError.message);

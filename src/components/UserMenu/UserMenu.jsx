@@ -5,16 +5,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/users/operations";
 import { selectUserName } from "../../redux/users/selectors";
 import { selectImage } from "../../redux/nannies/selectors";
+import { useNavigate } from "react-router-dom";
 // import { setImage } from "../../redux/nannies/slice";
 
 export default function UserMenu() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userName = useSelector(selectUserName);
   const image = useSelector(selectImage);
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout()).unwrap();
+      navigate("/");
+    } catch (error) {
+      console.log("Logout error:", error);
+    }
   };
 
   const handleImageUpload = async (e) => {

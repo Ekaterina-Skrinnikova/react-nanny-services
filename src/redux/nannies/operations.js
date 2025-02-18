@@ -38,8 +38,6 @@ export const getNannies = createAsyncThunk(
         .from("babysitters")
         .select("id", { count: "exact" });
 
-      // console.log("Няни:", { nanniesData, countData: countData.length });
-
       return { nanniesData, countData: countData.length };
     } catch (error) {
       console.log("Помилка запиту:", error);

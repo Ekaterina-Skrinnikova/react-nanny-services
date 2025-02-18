@@ -9,12 +9,15 @@ import {
   selectPage,
 } from "../../redux/nannies/selectors.js";
 import { setPage } from "../../redux/nannies/slice.js";
+import { selectIsLoading } from "../../redux/users/selectors.js";
+import Loader from "../../components/Loader/Loader.jsx";
 
 export default function ListCardNannies() {
   const dispatch = useDispatch();
   const nannies = useSelector(selectNannies);
   const page = useSelector(selectPage);
   const countNannies = useSelector(selectCountNannies);
+  const isLoading = useSelector(selectIsLoading);
 
   const handleLoadMoreClick = () => {
     dispatch(setPage(page + 1));
@@ -32,17 +35,22 @@ export default function ListCardNannies() {
             </li>
           ))
         ) : (
-          <li>Nannies is not founded.</li>
+          <li>Nannies not founded.</li>
         )}
       </ul>
-
-      <Button
-        className={clsx(!isLoadAll ? css.btn : "visually-hidden")}
-        type="button"
-        onClick={handleLoadMoreClick}
-      >
-        Load more
-      </Button>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        !isLoadAll && (
+          <Button
+            className={css.btn}
+            type="button"
+            onClick={handleLoadMoreClick}
+          >
+            Load more
+          </Button>
+        )
+      )}
     </div>
   );
 }

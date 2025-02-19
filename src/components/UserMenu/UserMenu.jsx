@@ -1,12 +1,11 @@
 import css from "../UserMenu/UserMenu.module.css";
-import sprite from "../../images/sprite.svg";
+import sprite from "../../assets/images/sprite.svg";
 import Button from "../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/users/operations";
 import { selectUserName } from "../../redux/users/selectors";
 import { selectImage } from "../../redux/nannies/selectors";
 import { useNavigate } from "react-router-dom";
-// import { setImage } from "../../redux/nannies/slice";
 
 export default function UserMenu() {
   const navigate = useNavigate();

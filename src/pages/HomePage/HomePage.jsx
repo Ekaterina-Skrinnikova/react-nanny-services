@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import Button from "../../components/Button/Button";
 import RegisterForm from "../../components/RegistrationForm/RegistrationForm";
-import sprite from "../../images/sprite.svg";
+import sprite from "../../assets/images/sprite.svg";
 import css from "../HomePage/HomePage.module.css";
 import {
   selectIsOpenModalLogin,

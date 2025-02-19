@@ -7,7 +7,7 @@ import Button from "../Button/Button";
 import css from "../LogInForm/LogInForm.module.css";
 import { login } from "../../redux/users/operations";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaLogin } from "../schemas";
+import { schemaLogin } from "../../utils/schemas";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { selectShowPassword } from "../../redux/modal/selectors";

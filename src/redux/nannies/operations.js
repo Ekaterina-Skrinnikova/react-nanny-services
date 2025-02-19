@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { supabase } from "../../supabase/supabase-client";
+import { supabase } from "../../utils/supabase/supabase-client";
 
 export const getNannies = createAsyncThunk(
   "nannies/getNannies",

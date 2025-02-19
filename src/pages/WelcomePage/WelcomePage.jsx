@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import css from "../WelcomePage/WelcomePage.module.css";
-// import LogInForm from "../../components/LogInForm/LogInForm";
 import { useDispatch, useSelector } from "react-redux";
 import { openModalLogin, openModalReg } from "../../redux/modal/slice";
 import {
@@ -12,15 +9,9 @@ import LogInForm from "../../components/LogInForm/LogInForm";
 import RegisterForm from "../../components/RegistrationForm/RegistrationForm";
 
 export default function WelcomePage() {
-  const [isNewUser, setIsNewUser] = useState(null);
   const dispatch = useDispatch();
   const isOpenModalLogin = useSelector(selectIsOpenModalLogin);
   const isOpenModalReg = useSelector(selectIsOpenModalReg);
-
-  // useEffect(() => {
-  //   const isUser = JSON.parse(localStorage.getItem("persist:auth")).user;
-  //   setIsNewUser(isUser);
-  // }, []);
 
   const handleOpenModalLogin = () => {
     dispatch(openModalLogin());

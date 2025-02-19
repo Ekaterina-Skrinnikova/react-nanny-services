@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
-import sprite from "../../images/sprite.svg";
+import sprite from "../../assets/images/sprite.svg";
 import css from "../FiltersField/FiltersField.module.css";
 import { toggleIsOpenPopUp } from "../../redux/modal/slice.js";
 import { selectIsOpenPopUp } from "../../redux/modal/selectors.js";

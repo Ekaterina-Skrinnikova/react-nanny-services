@@ -3,7 +3,6 @@ import FiltersField from "../../components/FiltersField/FiltersField";
 import ListCardNannies from "../../components/ListCardNannies/ListCardNannies";
 import { getNannies } from "../../redux/nannies/operations.js";
 import { useEffect } from "react";
-// import { selectPerPage } from "../../redux/nannies/selectors.js";
 import {
   selectIsOpenModalLogin,
   selectIsOpenModalReg,

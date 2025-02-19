@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import sprite from "../../images/sprite.svg";
+import sprite from "../../assets/images/sprite.svg";
 import css from "../Reviews/Reviews.module.css";
 import Button from "../Button/Button";
 import { useDispatch, useSelector } from "react-redux";

@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import clsx from "clsx";
 import css from "../Modal/Modal.module.css";
-import sprite from "../../images/sprite.svg";
+import sprite from "../../assets/images/sprite.svg";
 
 export default function Modal({ children, modalClose, className }) {
   const dispatch = useDispatch();

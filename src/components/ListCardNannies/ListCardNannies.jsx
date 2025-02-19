@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import CardNanny from "../CardNanny/CardNanny";
 import css from "../ListCardNannies/ListCardNannies.module.css";

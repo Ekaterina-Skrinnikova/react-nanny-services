@@ -6,7 +6,7 @@ import { registration } from "../../redux/users/operations";
 import { closeModalReg, setShowPassword } from "../../redux/modal/slice";
 import Modal from "../Modal/Modal";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaRegistretion } from "../schemas";
+import { schemaRegistretion } from "../../utils/schemas";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { selectShowPassword } from "../../redux/modal/selectors";
 

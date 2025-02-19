@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import clsx from "clsx";
-import sprite from "../../images/sprite.svg";
+import sprite from "../../assets/images/sprite.svg";
 import css from "../CardNanny/CardNanny.module.css";
 import Reviews from "../Reviews/Reviews";
 import { changeFaivoritesListNannies } from "../../redux/nannies/slice.js";

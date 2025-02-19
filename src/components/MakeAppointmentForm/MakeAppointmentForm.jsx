@@ -6,7 +6,7 @@ import Modal from "../Modal/Modal";
 import css from "../MakeAppointmentForm/MakeAppointmentForm.module.css";
 import InputTimePiker from "../InputTimePiker/InputTimePiker";
 import { selectSavedNanny } from "../../redux/nannies/selectors";
-import { schemaForMakeAppointment } from "../schemas";
+import { schemaForMakeAppointment } from "../../utils/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function MakeAppointmentForm({ nanny }) {

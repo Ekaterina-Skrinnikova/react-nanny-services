@@ -1,13 +1,4 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-1. Project's name: Nanny services
+1. Project's name: # Nanny services
 
 2. Summary:
    The babysitting website is a convenient platform that helps parents find and book qualified caregivers. It is equipped with the function of sorting and filtering by popularity and cost of services. Developed on the basis of React and Supabase, the site provides secure authentication, uninterrupted booking and real-time updates.
@@ -22,27 +13,28 @@ Currently, two official plugins are available:
 
 4. Technologies
 
-   Frontend: React, Redux Toolkit, CSS
-   Backend: Supabase (PostgreSQL, authentication)
-   Others: Vite, React Icons, clsx
+   - Frontend: React, Redux Toolkit, CSS
+   - Backend: Supabase (PostgreSQL, authentication)
+   - Others: Vite, React Icons, clsx
 
 5. Installation and Startup
 
-   Local startup :
-   git clone https://github.com/your-repository.git
-   cd name of project
-   npm install
-   npm run dev
+   - Local startup :
+   - git clone https://github.com/your-repository.git
+   - cd name of project
+   - npm install
+   - npm run dev
 
 6. Setting up an environment
    Add .env file with keys of access by Supabase
 
 7. Project structure
-   /src/assets - file with images and fonts
-   /src/components – all UI-components
-   /src/pages – app's pages
-   /src/redux – state (Redux)
-   /src/utils – support functions
+
+   - /src/assets - file with images and fonts
+   - /src/components – all UI-components
+   - /src/pages – app's pages
+   - /src/redux – state (Redux)
+   - /src/utils – support functions
 
 8. Demo : react-nanny-services.vercel.app
 

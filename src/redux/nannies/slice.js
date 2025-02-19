@@ -11,7 +11,6 @@ const initialState = {
   perPage: 3,
   countNannies: null,
 
-  isExpanded: false,
   selectedItem: "A to Z",
   isLoading: false,
   error: null,
@@ -21,10 +20,6 @@ const nanniesSlice = createSlice({
   name: "nannies",
   initialState,
   reducers: {
-    expanded: (state) => {
-      state.isExpanded = !state.isExpanded;
-    },
-
     setSavedNanny: (state, action) => {
       state.savedNanny = action.payload;
     },
@@ -81,39 +76,7 @@ const nanniesSlice = createSlice({
       }),
 });
 
-// export const sortedNannies = createSelector(
-//   [
-//     (state) => state.nannies.nanniesRender,
-//     (state) => state.nannies.nanniesAll,
-//     (state) => state.modal.selectedItem,
-//   ],
-//   (nannies, nanniesAll, option) => {
-//     if (!nannies || !nanniesAll) return [];
-
-//     switch (option) {
-//       case "A to Z":
-//         return [...nannies].sort((a, b) => a.name.localeCompare(b.name));
-//       case "Z to A":
-//         return [...nannies].sort((a, b) => b.name.localeCompare(a.name));
-//       case "Less than 10$":
-//         return [...nannies].filter((nanny) => nanny.price_per_hour <= 10);
-//       case "More than 10$":
-//         return [...nannies].filter((nanny) => nanny.price_per_hour > 10);
-//       case "Popular":
-//         return [...nannies].filter((nanny) => nanny.rating >= 4);
-//       case "Not popular":
-//         return [...nannies].filter((nanny) => nanny.rating < 4);
-//       case "Show all":
-//         return nanniesAll;
-
-//       default:
-//         return nannies;
-//     }
-//   }
-// );
-
 export const {
-  expanded,
   setSavedNanny,
   setImage,
   setPage,

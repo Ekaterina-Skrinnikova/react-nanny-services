@@ -52,9 +52,13 @@
   width: 16px;
   height: 16px;
 }
+.showMessage {
+  margin-top: 23px;
+  position: relative;
+  width: 220px;
+}
 
 .btn {
-  margin-top: 23px;
   padding-left: 28px;
   padding-right: 28px;
   border: none;

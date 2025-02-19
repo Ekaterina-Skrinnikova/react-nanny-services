@@ -4,14 +4,8 @@ import clsx from "clsx";
 import sprite from "../../images/sprite.svg";
 import css from "../CardNanny/CardNanny.module.css";
 import Reviews from "../Reviews/Reviews";
-import {
-  changeFaivoritesListNannies,
-  expanded,
-} from "../../redux/nannies/slice.js";
-import {
-  selectFaivoritesListNannies,
-  selectIsExpanded,
-} from "../../redux/nannies/selectors.js";
+import { changeFaivoritesListNannies } from "../../redux/nannies/slice.js";
+import { selectFaivoritesListNannies } from "../../redux/nannies/selectors.js";
 import { selectIsOpenModalMakeAppointment } from "../../redux/modal/selectors.js";
 import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm.jsx";
 import { selectIsLoggedIn } from "../../redux/users/selectors.js";
@@ -41,11 +35,11 @@ export default function CardNanny({ nanny }) {
     "education",
   ];
   const dispatch = useDispatch();
-  const isExpanded = useSelector(selectIsExpanded);
   const [showMessage, setShowMessage] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleReadMoreClick = () => {
-    dispatch(expanded());
+    setIsExpanded(true);
   };
 
   const handleFavoritesNanniesClick = (id) => {

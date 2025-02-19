@@ -2,17 +2,27 @@ import clsx from "clsx";
 import sprite from "../../images/sprite.svg";
 import css from "../Reviews/Reviews.module.css";
 import Button from "../Button/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModalMakeAppointment } from "../../redux/modal/slice";
 import { setSavedNanny } from "../../redux/nannies/slice";
+import { selectIsLoggedIn } from "../../redux/users/selectors";
+import Notice from "../Notice/Notice";
+import { useState } from "react";
 
 export default function Reviews({ nanny }) {
   const dispatch = useDispatch();
   const responses = nanny.reviews;
+  const [showMessage, setShowMessage] = useState(false);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const handleOpenModalMakeAppointment = (nanny) => {
-    dispatch(setSavedNanny(nanny));
-    dispatch(openModalMakeAppointment());
+    if (!isLoggedIn) {
+      setShowMessage(true);
+      setTimeout(() => setShowMessage(false), 3000);
+    } else {
+      dispatch(setSavedNanny(nanny));
+      dispatch(openModalMakeAppointment());
+    }
   };
 
   return (
@@ -40,13 +50,20 @@ export default function Reviews({ nanny }) {
       ) : (
         <div>Reviews is not founded</div>
       )}
-      <Button
-        type="submit"
-        className={css.btn}
-        onClick={() => handleOpenModalMakeAppointment(nanny)}
-      >
-        Make an appointment
-      </Button>
+
+      <div className={css.showMessage}>
+        <Button
+          type="submit"
+          className={css.btn}
+          onClick={() => handleOpenModalMakeAppointment(nanny)}
+        >
+          Make an appointment
+        </Button>
+
+        {showMessage && (
+          <Notice>The service is available to authorized users</Notice>
+        )}
+      </div>
     </div>
   );
 }

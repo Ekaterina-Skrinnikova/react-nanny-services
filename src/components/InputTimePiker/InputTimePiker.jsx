@@ -1,78 +1,33 @@
 import { clsx } from "clsx";
-import { useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import { WiTime4 } from "react-icons/wi";
 import css from "../InputTimePiker/InputTimePiker.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  // setSelectedTimeOption,
-  // setCurrentIndex,
-  // setSelectedTimeOption,
-  toggleTimePicker,
-} from "../../redux/modal/slice";
-import {
-  // selectCurrentIndex,
-  selectIsToggleTimePicker,
-  // selectSelectedTimeOption,
-} from "../../redux/modal/selectors";
+import { toggleTimePicker } from "../../redux/modal/slice";
+import { selectIsToggleTimePicker } from "../../redux/modal/selectors";
 
 export default function InputTimePiker({ value, onChange, options }) {
   const dispatch = useDispatch();
   const isToggleTimePicker = useSelector(selectIsToggleTimePicker);
-  // const selectedTimeOption = useSelector(selectSelectedTimeOption);
-  // const currentIndex = useSelector(selectCurrentIndex);
-  const dropdownRef = useRef(null);
-
-  // console.log("value", value);
-  // console.log("onChange", onChange);
-  // console.log("options", options);
-  // console.log("selectedTimeOption", selectedTimeOption);
-  // console.log("isToggleTimePicker", isToggleTimePicker);
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        if (isToggleTimePicker) {
-          dispatch(toggleTimePicker());
-        }
-      }
-    };
-    if (isToggleTimePicker) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isToggleTimePicker, dispatch]);
+  const [currentIndex, setCurrentIndex] = useState(options.indexOf(value));
+  const dropdownRef = useRef();
 
   const handleToggle = () => {
     dispatch(toggleTimePicker());
   };
 
   const handleOptionClick = (time) => {
-    console.log("click", time);
-    // dispatch(setSelectedTimeOption(time));
     onChange(time);
+    dispatch(toggleTimePicker());
   };
 
-  // console.log("Selected time:", value);
-  // console.log("onChange function:", onChange);
-  // console.log("options:", options);
-
-  // const handleTimeOptionClick = (timeOption) => {
-  //   console.log("Click detected!");
-  //   console.log("Selected time:", timeOption);
-  //   console.log("onChange function:", onChange);
-  //   // dispatch(setSelectedTimeOption(timeOption));
-  //   onChange(timeOption);
-  // };
-
-  // const handleScroll = (event: React.WheelEvent<HTMLUListElement>) => {
-  //   if (event.deltaY > 0 && currentIndex < timeOptions.length - 1) {
-  //     dispatch(setCurrentIndex(currentIndex + 1));
-  //   } else if (event.deltaY < 0 && currentIndex > 0) {
-  //     dispatch(setCurrentIndex(currentIndex - 1));
-  //   }
-  // };
+  const handleWheel = (e) => {
+    if (e.deltaY > 0 && currentIndex < options.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else if (e.deltaY < 0 && currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
 
   return (
     <div className={css.timePiker}>
@@ -88,7 +43,11 @@ export default function InputTimePiker({ value, onChange, options }) {
       </button>
 
       {isToggleTimePicker && (
-        <div className={css.timeDropdown} ref={dropdownRef}>
+        <div
+          className={css.timeDropdown}
+          ref={dropdownRef}
+          onWheel={handleWheel}
+        >
           <div className={css.dropdownHeader}>Meeting time</div>
 
           <ul className={css.timeOptions}>
@@ -97,8 +56,7 @@ export default function InputTimePiker({ value, onChange, options }) {
                 return (
                   <li
                     key={i}
-                    onClick={(e) => {
-                      e.stopPropagation();
+                    onClick={() => {
                       handleOptionClick(timeOption);
                     }}
                     className={clsx(css.timeOption, {

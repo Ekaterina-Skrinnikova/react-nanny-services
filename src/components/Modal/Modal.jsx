@@ -34,6 +34,13 @@ export default function Modal({ children, modalClose, className }) {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
     <div className={css.backdrop} id="backdrop">
       <div className={clsx(css.wrapper, className)}>

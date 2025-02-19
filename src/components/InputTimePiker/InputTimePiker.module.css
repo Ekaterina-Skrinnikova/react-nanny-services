@@ -1,12 +1,10 @@
 .timePiker {
   position: relative;
-  /* margin: 100px; */
   max-width: 232px;
   height: 60px;
 }
 
 .timeInput {
-  /* margin-bottom: 8px; */
   padding: 16px 18px;
   background-color: var(--bg-card-color);
   border-radius: 12px;
@@ -31,9 +29,22 @@
   right: 0;
   width: 151px;
   height: 180px;
+  overflow-y: scroll;
   border-radius: 12px;
   padding: 16px;
   background-color: #fff;
+  z-index: 9999;
+}
+
+.timeDropdown::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* for Firefox */
+.timeDropdown {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
 }
 
 .dropdownHeader {
@@ -47,12 +58,12 @@
   align-items: center;
   row-gap: 4px;
   text-align: center;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .timeOption {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 87px;
   height: 24px;

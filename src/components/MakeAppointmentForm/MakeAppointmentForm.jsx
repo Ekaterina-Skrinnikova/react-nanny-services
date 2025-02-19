@@ -9,12 +9,10 @@ import { selectSavedNanny } from "../../redux/nannies/selectors";
 import { schemaForMakeAppointment } from "../schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// import { selectSelectedTimeOption } from "../../redux/modal/selectors";
-
 export default function MakeAppointmentForm({ nanny }) {
   const dispatch = useDispatch();
   const savedNanny = useSelector(selectSavedNanny);
-  // const selectedTimeOption = useSelector(selectSelectedTimeOption);
+
   const {
     register,
     handleSubmit,
@@ -115,7 +113,7 @@ export default function MakeAppointmentForm({ nanny }) {
             <Controller
               name="timeMeeting"
               control={control}
-              defaultValue=""
+              defaultValue="09:00"
               render={({
                 field: { value, onChange },
                 fieldState: { error },

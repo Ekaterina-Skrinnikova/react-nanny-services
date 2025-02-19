@@ -36,6 +36,6 @@
    - /src/redux – state (Redux)
    - /src/utils – support functions
 
-8. Demo : react-nanny-services.vercel.app
+8. Demo : [react-nanny-services.vercel.app](https://react-nanny-services.vercel.app/)
 
 9. Author: Kateryna Skrynnikova
